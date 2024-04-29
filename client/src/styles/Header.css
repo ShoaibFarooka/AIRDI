@@ -1,0 +1,139 @@
+.Header {
+    /* background-image: url('../assets/bg.png'); */
+    background-image: url('https://takeairdi.com/wp-content/uploads/2024/01/J3500_night-2-1920x0-c-default.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 80vh;
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 50px 8vw 20px 3vw;
+
+        .logo {
+            width: 130px;
+            height: 45px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+
+            .link {
+                font-size: 16px;
+                cursor: pointer;
+
+                a {
+                    text-decoration: none;
+                    color: white;
+                }
+                .active-link {
+                    color: #f58426;
+                }
+            }
+        }
+    }
+
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 90px;
+
+        .icon {
+            color: white;
+            font-size: 60px;
+            padding: 0px 10px;
+            transform: translateY(10%);
+        }
+
+        .text {
+            color: white;
+            font-size: 4rem;
+            font-weight: 700;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .Header {
+        height: 100%;
+        .nav {
+            padding: 20px 30px;
+
+            .logo {
+                width: 75px;
+                height: 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .dropdown {
+                .dropdown-btn {
+                    display: flex;
+                    align-items: center;
+                    padding: 6px 9px;
+                    border: none;
+                    border-radius: 2px;
+                    background-color: #f58426;
+                }
+
+                .dropdown-list {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 76.67px;
+                    left: 0;
+                    width: 100%;
+                    background-color: white;
+                    z-index: 1;
+
+                    .list-item {
+                        padding: 10px 20px;
+                        border-bottom: 1px solid #dddddd;
+
+                        a {
+                            text-decoration: none;
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+
+        .opened-menu {
+            background-color: white;
+            border-bottom: 1px solid #dddddd;
+
+            .logo {
+                filter: none;
+            }
+        }
+
+        .title {
+            padding-top: 20px;
+            padding-bottom: 50px;
+
+            .text {
+                font-size: 30px;
+            }
+        }
+
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .Header {
+        .nav {
+            .dropdown {
+                display: none;
+            }
+
+        }
+    }
+}

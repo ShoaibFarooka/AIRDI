@@ -1,0 +1,504 @@
+.checkout {
+    overflow-x: hidden;
+    .header {
+        background-color: #a2e53f;
+        padding: 12px 30px;
+        color: white;
+        font-size: 30px;
+        font-weight: 700;
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .content {
+        background-color: #f5f5f5;
+        padding: 20px 30px;
+        padding-top: 84px;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        height: 100%;
+
+        .passenger-info-container {
+            width: 60%;
+
+            .back-btn {
+                display: flex;
+                text-decoration: none;
+                color: black;
+                align-items: center;
+                gap: 5px;
+                padding: 8px 8px 8px 15px;
+                background-color: rgb(221, 221, 221);
+                border-radius: 6px;
+                width: fit-content;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+
+                div {
+                    font-size: 16px;
+                }
+            }
+
+            .passenger-info {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+
+                .cards {
+                    background-color: white;
+                    border: 1px solid rgb(187, 187, 187);
+                    border-radius: 6px;
+                    padding: 24px;
+
+                    .title {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        font-size: 20px;
+                        font-weight: 700;
+
+                        .number {
+                            background-color: #a2e53f;
+                            border-radius: 6px;
+                            padding: 3px 10px;
+                        }
+                    }
+
+                }
+
+                #card-1 {
+                    .p-info-internal {
+                        margin-top: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 25px;
+
+                        .passenger-name-container {
+                            display: flex;
+                            align-items: center;
+                            margin-top: 20px;
+                            width: 100%;
+                            gap: 2%;
+
+                            .input-container {
+                                display: flex;
+                                flex-direction: column;
+                                width: 50%;
+
+                                .input-label {
+                                    margin-bottom: 5px;
+                                    color: rgb(69, 69, 69);
+                                }
+
+                                .input {
+                                    border-radius: 6px;
+                                    padding: 8px 15px;
+                                    font-size: 16px;
+                                    border: 1px solid rgb(69, 69, 69);
+
+                                    &:hover {
+                                        background-color: rgb(232, 232, 232);
+                                    }
+
+                                }
+                            }
+                        }
+
+                        .passenger-dob-container {
+                            width: 100%;
+                            margin-top: 20px;
+
+                            .input-label {
+                                color: rgb(69, 69, 69);
+                            }
+
+                            .input-flex {
+                                margin-top: 5px;
+                                display: flex;
+                                width: 47%;
+                                border: 1px solid rgb(69, 69, 69);
+                                border-radius: 6px;
+                                padding: 0 3px;
+
+                                .input {
+                                    padding: 8px 15px;
+                                    font-size: 16px;
+                                    border: none;
+                                    /* width: 30%; */
+                                    outline: none;
+                                    border-right: 1px solid rgb(69, 69, 69);
+                                }
+
+                                .input:last-child {
+                                    border-right: none;
+                                }
+
+                                #input-1 {
+                                    width: 10%;
+                                }
+
+                                #input-2 {
+                                    width: 10%;
+                                }
+
+                                #input-3 {
+                                    width: 50%;
+
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+                #card-2 {
+                    .p-info-internal {
+                        margin-top: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+
+                        .extra {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            border: 1px solid rgb(218, 218, 218);
+                            border-radius: 6px;
+                            padding: 20px 10px;
+
+                            &:hover {
+                                background-color: rgb(235, 235, 235);
+                                cursor: pointer;
+                            }
+
+                            .input-container {
+                                display: flex;
+                                align-items: center;
+                                gap: 20px;
+
+                                .input {
+                                    -ms-transform: scale(2.2);
+                                    -webkit-transform: scale(2.2);
+                                    transform: scale(2.2);
+                                    cursor: pointer;
+                                }
+
+                                .input-label {
+                                    font-weight: bold;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                #card-3 {
+                    .p-info-internal {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        gap: 20px;
+                        margin-top: 20px;
+
+                        .full-input-container {
+                            width: 100%;
+
+                            .input-flex {
+                                display: flex;
+                                gap: 2%;
+
+                                .input {
+                                    width: 49%;
+                                }
+
+                                .select {
+                                    width: 49%;
+                                }
+                            }
+                        }
+
+                        .half-input-container {
+                            width: 50%;
+                        }
+
+                        .input-container {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+
+                            .label-input {
+                                color: rgb(69, 69, 69);
+                                width: fit-content;
+                            }
+
+                            .input {
+                                border-radius: 6px;
+                                padding: 8px 15px;
+                                font-size: 16px;
+                                border: 1px solid rgb(69, 69, 69);
+
+                                &:hover {
+                                    background-color: rgb(232, 232, 232);
+                                }
+                            }
+
+                            .select {
+                                border-radius: 6px;
+                                padding: 8px 5px;
+                                font-size: 16px;
+                                border: 1px solid rgb(69, 69, 69);
+                            }
+                        }
+                    }
+                }
+
+                #card-4 {
+                    .p-info-internal {
+                        display: flex;
+                        flex-direction: column;
+                        border: 1px solid rgb(218, 218, 218);
+                        border-radius: 6px;
+                        margin-top: 25px;
+
+                        .item {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+                            padding: 20px 10px;
+
+                            &:hover {
+                                background-color: rgb(235, 235, 235);
+                                cursor: pointer;
+                            }
+
+                            .input {
+                                -ms-transform: scale(2.2);
+                                -webkit-transform: scale(2.2);
+                                transform: scale(2.2);
+                                cursor: pointer;
+                            }
+
+                            .img {
+                                width: 49px;
+                                height: 25px;
+                            }
+
+                            .input-label {
+                                font-weight: bold;
+                            }
+                        }
+
+                        .seperator {
+                            border-bottom: 1px solid rgb(187, 187, 187);
+                        }
+                    }
+                }
+            }
+        }
+
+        .booking-details {
+            position: fixed;
+            top: 84;
+            right: 0;
+            padding-right: 30px;
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 84px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+
+            .title {
+                font-size: 22px;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .card {
+                padding: 10px 15px 15px 15px;
+                margin-top: 10px;
+                background-color: white;
+                border: 1px solid grey;
+                border-radius: 6px;
+
+                .card-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+
+                    .date {
+                        font-weight: bold;
+                    }
+
+                    .trip-type {
+                        font-weight: bold;
+                        color: rgb(14, 133, 14);
+                    }
+                }
+
+                .trip-details {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-left: 20px;
+                    font-size: 16px;
+                    color: rgb(79, 79, 79);
+
+                    .city {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+
+                        .map-icon {
+                            transform: translateX(-2px);
+                        }
+                    }
+                }
+            }
+
+            .price-info {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                .sub-price-info {
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: space-between;
+                    padding: 15px 0;
+
+                    .text {
+                        padding-left: 20px;
+                        height: fit-content;
+                        font-size: 17px;
+                    }
+
+                    .cost {
+                        font-size: 17px;
+                        font-weight: bold;
+                    }
+
+                    .total-text {
+                        font-size: 20px;
+                        display: flex;
+                        gap: 5px;
+
+                        div {
+                            font-weight: 700;
+                        }
+                    }
+
+                    .total-cost {
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+                }
+
+                .seperator {
+                    border-bottom: 1px solid rgb(151, 151, 151);
+                }
+
+                .voucher {
+                    .voucher-btn {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        padding: 8px 10px;
+                        border-radius: 6px;
+                        width: fit-content;
+
+                        &:hover {
+                            background-color: rgb(232, 232, 232);
+                            cursor: pointer;
+                        }
+
+                        .icon {
+                            transform: translateY(2px);
+                        }
+                    }
+
+                    .input-container {
+                        display: flex;
+                        gap: 10px;
+                        margin-top: 5px;
+
+                        .input {
+                            border-radius: 6px;
+                            padding: 8px 15px;
+                            font-size: 16px;
+                            border: 1px solid rgb(69, 69, 69);
+                            flex: 1;
+
+                            &:hover {
+                                background-color: rgb(232, 232, 232);
+                            }
+                        }
+
+                        .btn {
+                            border: 1px solid #a2e53f;
+                            border-radius: 6px;
+                            background-color: white;
+                            color: black;
+                            padding: 0 10px;
+                            font-size: 16px;
+
+                            &:hover {
+                                cursor: pointer;
+                                background-color: rgb(232, 232, 232);
+                            }
+                        }
+                    }
+
+                    .error-message {
+                        color: rgb(169, 37, 37);
+                        margin-top: 5px;
+                    }
+
+                    .success-message {
+                        color: rgb(6, 146, 6);
+                        margin-top: 5px;
+                    }
+                }
+            }
+
+            .pay-btn {
+                margin-top: 25px;
+                padding: 10px 0px;
+                margin-bottom: 30px;
+                border: none;
+                border-radius: 6px;
+                background-color: #ffcb46;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #e0aa21;
+                }
+            }
+
+        }
+    }
+}
+
+@media only screen and (max-width: 910px) {
+    .checkout .content {
+        flex-direction: column;
+        gap: 40px;
+        padding: 20px 10px;
+        padding-top: 84px;
+    }
+
+    .checkout .content .passenger-info-container {
+        width: 100%;
+    }
+
+    .checkout .content .booking-details {
+        position: relative;
+        width: 100%;
+        height: fit-content;
+    }
+}

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Template</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        html {
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .page {
+            width: 100%;
+            display: flex;
+            border-bottom: 1px dashed grey;
+        }
+
+        .page .content {
+            width: 50%;
+            padding: 10px 20px;
+        }
+
+        .page .left-content {
+            border-right: 1px dashed grey;
+        }
+
+        .page .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 0;
+            border-bottom: 1px solid grey;
+        }
+
+        .page .content-body {
+            padding: 10px 0 50px 0;
+        }
+
+        .page .timeline-container {
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+        }
+
+        .page .date {
+            margin-bottom: 10px
+        }
+
+        .page .timeline {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px
+        }
+
+        .page .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: rgb(144, 210, 45);
+            top: 0;
+            bottom: 0;
+            left: 90px;
+        }
+
+        .page .timeline .timeline-item {
+            display: flex;
+            gap: 30px;
+        }
+
+        .page .timeline .timeline-left-content {
+            position: relative;
+        }
+
+        .page .timeline .timeline-left-content::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: rgb(144, 210, 45);
+            border-radius: 50%;
+            left: 84.5px;
+        }
+
+        .page .timeline .timeline-right-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .page .timeline .end-dot::after {
+            top: 1;
+            bottom: 0;
+        }
+
+        .page .fa-info-circle {
+            font-size: 16px;
+            color: rgb(241, 177, 39);
+        }
+
+        .page .operation-info {
+            font-size: 16px;
+            font-weight: 500;
+            color: rgb(241, 177, 39);
+            max-width: 200px;
+        }
+
+        .page .bus-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid rgb(144, 210, 45);
+            border-radius: 8px;
+            padding: 10px 20px;
+        }
+
+        .page .bus-card i {
+            font-size: 22px;
+            color: rgb(144, 210, 45);
+        }
+
+        .page .qr-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .page .qr-code {
+            width: 250px;
+            height: 250px;
+        }
+
+        .icons-flex {
+            margin-top: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            row-gap: 30px;
+        }
+
+        .page .icon-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 45%;
+        }
+
+        .page .pass-icons {
+            font-size: 30px;
+        }
+
+        .page .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page .flex {
+            display: flex;
+        }
+
+        .page .align-end {
+            align-items: flex-end;
+        }
+
+        .page .align-start {
+            align-items: flex-start;
+        }
+
+        .page .gap-10 {
+            gap: 10px;
+        }
+
+        .page .gap-5 {
+            gap: 5px;
+        }
+
+        .page .heading {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .page .sub-heading {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .page .grey {
+            color: rgb(101, 101, 101);
+        }
+
+        .page .bold {
+            font-weight: bold;
+        }
+
+        .page .fs-16 {
+            font-size: 16px;
+        }
+
+        .page .fs-14 {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <div class="left-content content">
+            <div class="header">
+                <div class="logo">
+                    {{!-- <img width="130" height="40" src='/images/logo.png' alt="AIRDI" /> --}}
+                    <img width="130" height="40" src="http://localhost:5009/images/logo.png" alt="AIRDI" />
+                </div>
+                <div class="booking-number flex-col gap-10 align-end">
+                    <div class="booking-text fs-16">Booking Number</div>
+                    <div class="booking-id grey fs-14">{{ticket.code}}</div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="timeline-container">
+                    <div class="pl-3">
+                        <div class="date heading">{{ticket.journeyBus.departureDate}}</div>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-left-content sub-heading">
+                                    {{convertToAMPM ticket.journeyBus.departureTime}}
+                                </div>
+                                <div class="timeline-right-content">
+                                    <div class="heading">{{ticket.journeyBus.departurePoint}}</div>
+                                    <div class="flex align-start gap-10">
+                                        <i class="fa fa-info-circle"></i>
+                                        <div class="operation-info">
+                                            Operated by AIRDI.
+                                        </div>
+                                    </div>
+                                    <div class="bus-card">
+                                        <i class="fa fa-bus"></i>
+                                        <div class="flex-col gap-5">
+                                            <div>Bus 2610</div>
+                                            <div class="grey fs-14">Direction {{ticket.journeyBus.arrivalPoint}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-left-content end-dot sub-heading">
+                                    {{convertToAMPM ticket.journeyBus.arrivalTime}}
+                                </div>
+                                <div class="timeline-right-content heading">
+                                    {{ticket.journeyBus.arrivalPoint}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{#if ticket.returnBus}}
+                    <div class="pl-3">
+                        <div class="date heading">{{ticket.returnBus.departureDate}}</div>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-left-content sub-heading">
+                                    {{convertToAMPM ticket.returnBus.departureTime}}
+                                </div>
+                                <div class="timeline-right-content">
+                                    <div class="heading">{{ticket.returnBus.departurePoint}}</div>
+                                    <div class="flex align-start gap-10">
+                                        <i class="fa fa-info-circle"></i>
+                                        <div class="operation-info">
+                                            Operated by AIRDI.
+                                        </div>
+                                    </div>
+                                    <div class="bus-card">
+                                        <i class="fa fa-bus"></i>
+                                        <div class="flex-col gap-5">
+                                            <div>Bus 2611</div>
+                                            <div class="grey fs-14">Direction {{ticket.returnBus.arrivalPoint}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-left-content end-dot sub-heading">
+                                    {{convertToAMPM ticket.returnBus.arrivalTime}}
+                                </div>
+                                <div class="timeline-right-content heading">
+                                    {{ticket.returnBus.arrivalPoint}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+
+            </div>
+        </div>
+        <div class="right-content content">
+            <div class="header">
+                <div class="ticket-title flex-col gap-10">
+                    <div class="fs-16">BOARDING PASS</div>
+                    <div class="grey fs-14">Valid in both print and digital form</div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="qr-container">
+                    <img src="https://www.techopedia.com/wp-content/uploads/2023/03/aee977ce-f946-4451-8b9e-bba278ba5f13.png"
+                        alt="QR Code" class="qr-code" />
+                </div>
+                <div class="icons-flex">
+                    {{#each ticket.adults}}
+                    <div class="icon-container">
+                        <i class="fa fa-male pass-icons"></i>
+                        <div class="flex-col gap-5">
+                            <div class="grey">Adult</div>
+                            <div class="bold">{{this.firstname}} {{this.lastname}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+
+                </div>
+                {{#if ticket.children}}
+                <div class="icons-flex">
+                    {{#each ticket.children}}
+                    <div class="icon-container">
+                        <i class="fa fa-child pass-icons"></i>
+                        <div class="flex-col gap-5">
+                            <div class="grey">Child</div>
+                            <div class="bold">{{this.firstname}} {{this.lastname}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+                {{#if ticket.extras}}
+                <div class="icons-flex">
+                    {{#each ticket.extras}}
+                    <div class="icon-container">
+                        <i class="fa fa-plus-square-o pass-icons"></i>
+                        <div class="flex-col gap-5">
+                            <div class="grey">Extra</div>
+                            <div class="bold">{{this.name}}</div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

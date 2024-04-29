@@ -1,0 +1,7 @@
+/node_modules
+/.env
+/template/emailTemplate.html
+/template/emailTemplate.css
+/template/pdf2.html
+/template/pdf2.css
+/template/pdfTemplate2.hbs

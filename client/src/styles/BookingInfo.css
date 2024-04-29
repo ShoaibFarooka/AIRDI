@@ -1,0 +1,182 @@
+.ticket-container {
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #acacac;
+    border-radius: 8px;
+    width: calc(100% - 40px);
+
+    .header {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .ticket-details {
+        margin-top: 20px;
+
+        .detail {
+            display: flex;
+            gap: 20%;
+            margin-bottom: 10px;
+
+            .label {
+                width: 150px;
+                /* font-weight: bold; */
+            }
+
+            .value {}
+        }
+
+        .sub-heading {
+            font-weight: bold;
+            font-size: 18px;
+            padding-top: 10px;
+            margin-bottom: 3px;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 5px;
+            gap: 20px;
+
+            .schedule-card {
+                padding: 10px 20px;
+                color: white;
+                background-color: rgb(60, 109, 181);
+                border-radius: 6px;
+
+                .flex-schedule-row {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .flex-col {
+                        display: flex;
+                        flex-direction: column;
+                        font-size: 16px;
+                    }
+                }
+
+                .bus-type-row {
+                    margin-top: 10px;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                .bus-row {
+                    display: flex;
+                    gap: 20px;
+                    margin-top: 10px;
+
+                    .icon-row {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    .btns-div {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+
+        .btn {
+            padding: 11px 15px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            transition: all 350ms ease-in-out;
+
+        }
+
+        .non-disabled-btn {
+            background-color: #e67c30;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #ff7b06;
+                opacity: 0.8;
+            }
+        }
+
+        .disabled-btn {
+            background-color: #e67c30a3;
+
+        }
+    }
+}
+
+.voucher-confirmation {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.voucher-confirmation h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.voucher-confirmation p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.voucher-confirmation .voucher-code {
+    font-size: 20px;
+    font-weight: bold;
+    color: #009688;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .ticket-container {
+        padding: 20px 10px;
+
+        .header {
+            font-size: 22px;
+        }
+
+        .ticket-details {
+            font-size: 14px;
+
+            .detail {
+                gap: 0;
+                justify-content: space-between;
+
+                .label {
+                    width: fit-content;
+                }
+            }
+
+            .sub-heading {
+                font-size: 16px;
+            }
+
+            .cards-container {
+                .schedule-card {
+                    padding: 10px;
+                    font-size: 14px;
+
+                    .flex-schedule-row {
+                        .flex-col {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

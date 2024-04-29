@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Timeline</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .page-header {
+            /*
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            */
+            padding: 10px 30px
+        }
+
+        .header {
+            background-color: #2390de;
+            color: white;
+            font-size: 26px;
+            font-weight: 600;
+            padding: 8px 28px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-container {
+            /*
+                display: flex;
+                gap: 20%;
+            */
+        }
+
+        .date {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px
+        }
+
+        .timeline {
+            position: relative;
+            /* 
+
+                display: flex;
+                flex-direction: column;
+                gap: 70px
+            */
+        }
+
+        /*
+            .timeline::after {
+                content: '';
+                position: absolute;
+                width: 2px;
+                background-color: #2390de;
+                top: 0;
+                bottom: 0;
+                left: 80px;
+                margin-left: 0.5px;
+            }
+        */
+
+        .timeline-item {
+            /* 
+                display: flex;
+                gap: 15px;
+            */
+            display: flex;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .left-content {
+            width: 80px;
+            position: relative;
+        }
+
+        /*
+            .left-content::after {
+                content: '';
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                background-color: #0096FF;
+                border-radius: 50%;
+                left: 75px;
+            }
+        */
+
+        /*
+            .end-dot::after {
+                top: 1;
+                bottom: 0;
+            }
+        */
+
+        .ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .ul li {
+            margin-bottom: 10px;
+        }
+
+        .payment-details {
+            /* 
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            */
+            font-weight: 600;
+        }
+
+        .mt-2 {
+            margin-top: 20px;
+        }
+
+        .pl-2 {
+            padding-left: 20px
+        }
+
+        .pl-3 {
+            padding-left: 30px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-header">
+        <div>
+            <img src="http://localhost:5009/images/logo.png" alt="logo" width="80" height="50" />
+        </div>
+        {{!-- <div>#{{ticket.code}}</div> --}}
+    </div>
+    <div class="header">Airdi
+        Booking Confirmation</div>
+    <div class="pl-3">Thank you for your booking #{{ticket.code}}.<br />
+        <br />Please find your boarding pass attached.<br />
+        <br /><br />Please note:<br />
+        <br />Want to cancel or change your trip?<br />
+        Use our self-service "Manage My Booking" area where you can cancel your trip or make changes to it and edit
+        passenger details such as name or phone number.<br />
+        <br />FAQ<br />
+        We answer frequent questions about our services on our FAQ page at www.flixbus.com. Here you can find our T&Cs
+        and Passenger Rights.<br />
+        <br />We wish you a pleasant journey,<br />
+        Airdi
+    </div>
+    <div class="header mt-2">Trip Details</div>
+    <div class="timeline-container">
+        <div class="pl-3">
+            <div class="date">{{ticket.journeyBus.departureDate}}</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="left-content">
+                        {{convertToAMPM ticket.journeyBus.departureTime}}
+                    </div>
+                    <div class="right-content">
+                        {{ticket.journeyBus.departurePoint}}
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="left-content end-dot">
+                        {{convertToAMPM ticket.journeyBus.arrivalTime}}
+                    </div>
+                    <div class="right-content">
+                        {{ticket.journeyBus.arrivalPoint}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{#if ticket.returnBus}}
+        <div class="pl-3 mt-2">
+            <div class="date">{{ticket.returnBus.departureDate}}</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="left-content">
+                        {{convertToAMPM ticket.returnBus.departureTime}}
+                    </div>
+                    <div class="right-content">
+                        {{ticket.returnBus.departurePoint}}
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="left-content end-dot">
+                        {{convertToAMPM ticket.returnBus.arrivalTime}}
+                    </div>
+                    <div class="right-content">
+                        {{ticket.returnBus.arrivalPoint}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    <div class="header mt-2">Passenger Details</div>
+    <div class="pl-3">
+        <ul class="ul">
+            {{#each ticket.adults}}
+            <li>{{this.firstname}} {{this.lastname}}</li>
+            {{/each}}
+            {{#each ticket.children}}
+            <li>{{this.firstname}} {{this.lastname}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="header mt-2">Payment Details</div>
+    <div class="payment-details pl-3">
+        <div>Total Payment: ${{ticket.subTotal}} USD</div>
+        <div>Payment Method: {{ticket.paymentGateway}}</div>
+        <div>Payment Date: {{formatDate ticket.updatedAt}}</div>
+    </div>
+    <div class="header mt-2">Terms & Conditions</div>
+    <div>Text</div>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+const router = require("express").Router();
+const controller = require("../controllers/adminController");
+const authMiddleware = require("../middleware/authMiddleware");
+
+router.post(
+    "/register",
+    controller.Register
+);
+router.post(
+    "/login",
+    controller.Login
+);
+router.get(
+    "/get-buses-info",
+    controller.GetBusesInfo
+);
+router.post(
+    "/get-passenger-list",
+    controller.GetBusPassengerList
+);
+router.post(
+    "/search-passenger",
+    controller.SearchPassenger
+);
+router.patch(
+    "/check-in-passenger/:bookingId",
+    controller.CheckInPassenger
+);
+router.post(
+    "/get-sales-report",
+    controller.GetSalesReport
+);
+router.post(
+    "/get-filtered-passengers",
+    controller.GetFilteredPassengers
+);
+router.get(
+    "/get-bus-access",
+    controller.GetBusAccess
+);
+router.patch(
+    "/update-bus-access",
+    controller.UpdateBusAccess
+);
+router.post(
+    "/add-voucher",
+    controller.AddVoucher
+);
+router.patch(
+    "/update-voucher/:voucherId",
+    controller.UpdateVoucher
+);
+router.post(
+    "/add-extra",
+    controller.AddExtra
+);
+router.patch(
+    "/update-extra/:extraId",
+    controller.UpdateExtra
+);
+router.post(
+    "/buy-ticket",
+    controller.BuyTicket
+);
+router.post(
+    "/create-route",
+    controller.CreateRoute
+);
+router.get(
+    "/get-routes",
+    controller.GetRoutes
+);
+router.patch(
+    "/update-route/:routeId",
+    controller.UpdateRoute
+);
+
+module.exports = router;
