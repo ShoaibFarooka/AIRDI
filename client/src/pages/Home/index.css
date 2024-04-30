@@ -46,6 +46,11 @@
                 .search-input {
                     padding: 12px 8px;
                     border: 1px solid rgba(152, 152, 152, 0.379);
+
+                    &:focus {
+                        outline-width: 0;
+                        border: 2px solid rgba(0, 0, 0, 0.639);
+                    }
                 }
             }
 
@@ -306,6 +311,10 @@
 
                 .flex-row-item {
                     width: 100%;
+
+                    .search-input {
+                        -webkit-appearance: none;
+                    }
                 }
             }
         }

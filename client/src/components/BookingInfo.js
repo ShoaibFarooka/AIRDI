@@ -149,21 +149,21 @@ const BookingInfo = ({ ticket, ticketRef, cancellationVoucherCode, setCancellati
                                 <div className='bus-row'>
                                     <div className='icon-row'>
                                         <FaCalendarAlt size={18} />
-                                        {ticket.journeyBus.departureDate}
+                                        <div>{ticket.journeyBus.departureDate}</div>
                                     </div>
                                     <div className='icon-row'>
                                         <FaCalendarCheck size={18} />
-                                        {ticket.journeyBus.arrivalDate}
+                                        <div>{ticket.journeyBus.arrivalDate}</div>
                                     </div>
                                 </div>
                                 <div className='bus-row'>
                                     <div className='icon-row'>
                                         <FaRegClock size={18} />
-                                        {convertToAMPM(ticket.journeyBus.departureTime)}
+                                        <div>{convertToAMPM(ticket.journeyBus.departureTime)}</div>
                                     </div>
                                     <div className='icon-row'>
                                         <CgTimelapse size={18} />
-                                        {convertToAMPM(ticket.journeyBus.arrivalTime)}
+                                        <div>{convertToAMPM(ticket.journeyBus.arrivalTime)}</div>
                                     </div>
                                 </div>
                             </div>
@@ -187,21 +187,21 @@ const BookingInfo = ({ ticket, ticketRef, cancellationVoucherCode, setCancellati
                                     <div className='bus-row'>
                                         <div className='icon-row'>
                                             <FaCalendarAlt size={18} />
-                                            {ticket.returnBus.departureDate}
+                                            <div>{ticket.returnBus.departureDate}</div>
                                         </div>
                                         <div className='icon-row'>
                                             <FaCalendarCheck size={18} />
-                                            {ticket.returnBus.arrivalDate}
+                                            <div>{ticket.returnBus.arrivalDate}</div>
                                         </div>
                                     </div>
                                     <div className='bus-row'>
                                         <div className='icon-row'>
                                             <FaRegClock size={18} />
-                                            {convertToAMPM(ticket.returnBus.departureTime)}
+                                            <div>{convertToAMPM(ticket.returnBus.departureTime)}</div>
                                         </div>
                                         <div className='icon-row'>
                                             <CgTimelapse size={18} />
-                                            {convertToAMPM(ticket.returnBus.arrivalTime)}
+                                            <div>{convertToAMPM(ticket.returnBus.arrivalTime)}</div>
                                         </div>
                                     </div>
                                 </div>

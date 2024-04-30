@@ -208,6 +208,7 @@ const DownloadTicket = async (req, res) => {
         const beforeLaunchTime = performance.now();
 
         const browser = await puppeteer.launch({
+            executablePath: '/usr/bin/chromium-browser',
             headless: true, // Run in headless mode
             args: ['--no-sandbox', '--disable-setuid-sandbox'], // Disable sandboxing
             ignoreHTTPSErrors: true,

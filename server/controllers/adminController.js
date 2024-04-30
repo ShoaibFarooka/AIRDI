@@ -470,6 +470,7 @@ async function generatePDF(ticket) {
     const html = template({ ticket });
 
     const browser = await puppeteer.launch({
+        executablePath: '/usr/bin/chromium-browser',
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox'],
         ignoreHTTPSErrors: true,
