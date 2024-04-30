@@ -71,7 +71,7 @@
                     margin-top: 10px;
 
                     .icon-row {
-                        display: flex;
+                        display: flex !important;
                         align-items: center;
                         gap: 10px;
                     }
