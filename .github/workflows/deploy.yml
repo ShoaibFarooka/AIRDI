@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Pull changes
+        run: git pull origin main
+        working-directory: /root/AIRDI
+
+      - name: Install dependencies and build client
+        run: |
+          cd /root/AIRDI/client
+          npm install
+          CI='' npm run build
+
+      - name: Install server dependencies
+        run: |
+          cd /root/AIRDI/server
+          npm install
