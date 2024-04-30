@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import './index.css';
 import { Link } from "react-router-dom";
-import { message } from 'antd';
+import { message, DatePicker } from 'antd';
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
 import { FaLocationDot } from "react-icons/fa6";
@@ -290,14 +290,21 @@ const Home = () => {
                             <FaCalendarAlt size={21} />
                             <div>Departure</div>
                         </label>
-                        <input
+                        <DatePicker
+                            id="journey-date"
+                            name="journeyDate"
+                            className="search-input"
+                            initialValue={undefined}
+                            // value={formData.journeyDate || undefined}
+                            onChange={handleInputChange} />
+                        {/* <input
                             type="date"
                             id="journey-date"
                             name="journeyDate"
                             className="search-input"
                             value={formData.journeyDate}
                             onChange={handleInputChange}
-                        />
+                        /> */}
                     </div>
                     <div className="flex-row-item">
                         <label htmlFor="return-date" className="label">
