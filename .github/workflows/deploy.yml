@@ -24,7 +24,7 @@ jobs:
         run: |
           cd /root/AIRDI/client
           npm install
-          npm run build
+          CI='' npm run build
 
       - name: Install server dependencies
         run: |
