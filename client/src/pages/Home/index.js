@@ -328,10 +328,10 @@ const Home = () => {
                 {error &&
                     <div className="error-info">{error}</div>
                 }
-                <div className="comment">
+                {/* <div className="comment">
                     <div>"Getting to the airport just got much more affordable for Bronxites, thanks to Airdi"</div>
                     <div>- Bronx News 12</div>
-                </div>
+                </div> */}
                 <div className="cards-container">
                     <div className="cards-title">MEET AIRDI</div>
                     <div className="seperator"></div>
@@ -359,9 +359,9 @@ const Home = () => {
             </div>
             <div className="absolute-container">
                 <div className="content">
-                    <div className="title">BOOK NOW & SAVE UP TO 25% OFF</div>
+                    <div className="title">BOOK NOW & SAVE</div>
                     <div className="seperator"></div>
-                    <div className="para">Diremit mundi mare undae nunc mixtam tanto sibi. Nubes unda concordi. Fert his. Recessit mentes praecipites locum caligine sui egens erat. Silvas caeli regna.</div>
+                    <div className="para">Getting to the airport has never been this easy or affordable. Airdi offers hourly transportation between The Bronx and JFK/LGA Airport.</div>
                     <Link to='/' className="btn">
                         <div>LEARN MORE</div>
                         <FaLongArrowAltRight color="white" />

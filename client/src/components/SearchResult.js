@@ -314,10 +314,12 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
                                             <div className="seperator"></div>
                                             <div>Direct</div>
                                         </div>
-                                        <div className="item">
-                                            <FaPeopleGroup size={22} />
-                                            <div>Almost Full</div>
-                                        </div>
+                                        {bus.seatsTaken >= 10 &&
+                                            <div className="item">
+                                                <FaPeopleGroup size={22} />
+                                                <div>Almost Full</div>
+                                            </div>
+                                        }
                                     </div>
                                     <button className="btn" onClick={() => handleView2Continue(bus)}>
                                         <div>Continue </div>

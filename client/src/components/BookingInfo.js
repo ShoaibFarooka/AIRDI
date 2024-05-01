@@ -144,7 +144,7 @@ const BookingInfo = ({ ticket, ticketRef, cancellationVoucherCode, setCancellati
                                 </div>
                                 <div className='bus-type-row'>
                                     <FaBusAlt size={18} />
-                                    <div>AIRDI Bus</div>
+                                    <div>Airdi</div>
                                 </div>
                                 <div className='bus-row'>
                                     <div className='icon-row'>
@@ -182,7 +182,7 @@ const BookingInfo = ({ ticket, ticketRef, cancellationVoucherCode, setCancellati
                                     </div>
                                     <div className='bus-type-row'>
                                         <FaBusAlt size={18} />
-                                        <div>AIRDI Bus</div>
+                                        <div>Airdi</div>
                                     </div>
                                     <div className='bus-row'>
                                         <div className='icon-row'>

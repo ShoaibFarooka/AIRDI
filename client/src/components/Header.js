@@ -40,11 +40,11 @@ const Header = () => {
                     </div>
                     <div className="link">
                         <NavLink
-                            to='/about-us'
+                            to='/faqs'
                             className={({ isActive }) =>
                                 isActive ? "active-link" : ""}
                         >
-                            About Us
+                            FAQs
                         </NavLink>
                     </div>
                     <div className="link">
@@ -70,7 +70,7 @@ const Header = () => {
                         <div className="dropdown-list">
                             <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>Book</NavLink></div>
                             <div className="list-item"><NavLink to='/manage-booking' onClick={toggleDropdown}>Manage Booking</NavLink></div>
-                            <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>About Us</NavLink></div>
+                            <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>FAQs</NavLink></div>
                             <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>Help</NavLink></div>
                         </div>
                     }
