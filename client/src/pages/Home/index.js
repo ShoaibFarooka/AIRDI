@@ -237,7 +237,7 @@ const Home = () => {
             setReturnDateChanged(true);
         }
     };
-
+    
     return (
         <div className="Home">
             <div className="search-box" ref={searchRef}>
@@ -290,21 +290,14 @@ const Home = () => {
                             <FaCalendarAlt size={21} />
                             <div>Departure</div>
                         </label>
-                        <DatePicker
-                            id="journey-date"
-                            name="journeyDate"
-                            className="search-input"
-                            initialValue={undefined}
-                            // value={formData.journeyDate || undefined}
-                            onChange={handleInputChange} />
-                        {/* <input
+                        <input
                             type="date"
                             id="journey-date"
                             name="journeyDate"
                             className="search-input"
                             value={formData.journeyDate}
                             onChange={handleInputChange}
-                        /> */}
+                        />
                     </div>
                     <div className="flex-row-item">
                         <label htmlFor="return-date" className="label">
