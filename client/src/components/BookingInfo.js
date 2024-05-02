@@ -54,6 +54,10 @@ const BookingInfo = ({ ticket, ticketRef, cancellationVoucherCode, setCancellati
     };
 
     const handleCancelBooking = async () => {
+        const isConfirmed = window.confirm("Are you sure?");
+        if (!isConfirmed) {
+            return;
+        }
         dispatch(ShowLoading());
         try {
             const response = await bookingService.cancelBooking({ bookingId: ticket._id });
@@ -149,11 +153,11 @@ const BookingInfo = ({ ticket, ticketRef, cancellationVoucherCode, setCancellati
                                 <div className='bus-row'>
                                     <div className='icon-row'>
                                         <FaCalendarAlt size={18} />
-                                        <div>{ticket.journeyBus.departureDate}</div>
+                                        <div>{new Date(ticket.journeyBus.departureDate).toDateString()}</div>
                                     </div>
                                     <div className='icon-row'>
                                         <FaCalendarCheck size={18} />
-                                        <div>{ticket.journeyBus.arrivalDate}</div>
+                                        <div>{new Date(ticket.journeyBus.arrivalDate).toDateString()}</div>
                                     </div>
                                 </div>
                                 <div className='bus-row'>
@@ -187,11 +191,11 @@ const BookingInfo = ({ ticket, ticketRef, cancellationVoucherCode, setCancellati
                                     <div className='bus-row'>
                                         <div className='icon-row'>
                                             <FaCalendarAlt size={18} />
-                                            <div>{ticket.returnBus.departureDate}</div>
+                                            <div>{new Date(ticket.returnBus.departureDate).toDateString()}</div>
                                         </div>
                                         <div className='icon-row'>
                                             <FaCalendarCheck size={18} />
-                                            <div>{ticket.returnBus.arrivalDate}</div>
+                                            <div>{new Date(ticket.returnBus.arrivalDate).toDateString()}</div>
                                         </div>
                                     </div>
                                     <div className='bus-row'>

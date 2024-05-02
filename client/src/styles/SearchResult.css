@@ -81,6 +81,32 @@
                     display: flex;
                     justify-content: space-between;
 
+                    /* .duration-timeline-item {
+                        position: relative;
+
+                        .travel-time {
+                            text-align: center;
+                        }
+
+                        .travel-time::before,
+                        .travel-time::after {
+                            content: '';
+                            position: absolute;
+                            top: 25%;
+                            width: 50px;
+                            height: 1px;
+                            background-color: #e1e1e1;
+                        }
+
+                        .travel-time::before {
+                            left: 0;
+                        }
+
+                        .travel-time::after {
+                            right: 0;
+                        }
+                    } */
+
                     .timeline-item {
                         display: flex;
                         flex-direction: column;

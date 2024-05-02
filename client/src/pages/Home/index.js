@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import './index.css';
-import { Link } from "react-router-dom";
-import { message, DatePicker } from 'antd';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { message, DatePicker, Select } from 'antd';
+import dayjs from "dayjs";
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
 import { FaLocationDot } from "react-icons/fa6";
@@ -14,21 +15,24 @@ import SerachResult from "../../components/SearchResult";
 import busService from "../../services/busService";
 
 const Home = () => {
-    const [departures, setDepartures] = useState([]);
+    const [points, setPoints] = useState([]);
+    const [selectedPointIndex, setSelectedPointIndex] = useState(null);
     const [formData, setFormData] = useState({
-        from: '',
-        to: '',
+        from: null,
+        to: null,
         journeyDate: '',
         returnDate: ''
     });
     const [autoFetch, setAutoFetch] = useState(false);
     const [error, setError] = useState(null);
-    const [arrivals, setArrivals] = useState([]);
     const [outwardBuses, setOutwardBuses] = useState([]);
     const [returnBuses, setReturnBuses] = useState([]);
     const [journeyDateChanged, setJourneyDateChanged] = useState(false);
     const [returnDateChanged, setReturnDateChanged] = useState(false);
     const [thresholdTime, setThresholdTime] = useState(0);
+    const dateFormat = 'YYYY-MM-DD';
+    const location = useLocation();
+    const navigate = useNavigate();
     const searchRef = useRef(null);
     const resultRef = useRef(null);
 
@@ -36,17 +40,10 @@ const Home = () => {
 
     const fetchAllDeparturesAndArrivals = async () => {
         try {
-            const response = await busService.getAllDepartures();
-            if (response.departurePoints) {
-                setDepartures(response.departurePoints);
-            }
-        } catch (error) {
-            message.error(error.response.data);
-        }
-        try {
-            const response = await busService.getAllArrivals();
-            if (response.arrivalPoints) {
-                setArrivals(response.arrivalPoints);
+            const response = await busService.getDepartureAndArrivalPoints();
+            if (response.points) {
+                console.log('Points: ', response.points);
+                setPoints(response.points);
             }
         } catch (error) {
             message.error(error.response.data);
@@ -64,20 +61,38 @@ const Home = () => {
         }
     };
 
-    useEffect(() => {
+    const getData = async () => {
         dispatch(ShowLoading());
-        fetchAllDeparturesAndArrivals();
-        fetchThresholdTime();
+        await fetchAllDeparturesAndArrivals();
+        await fetchThresholdTime();
         dispatch(HideLoading());
+    }
+
+    useEffect(() => {
+        getData();
+        window.history.scrollRestoration = 'manual';
+    }, []);
+
+    useEffect(() => {
         const savedFormData = localStorage.getItem('formData');
-        if (savedFormData) {
+        if (location.state && location.state.fromCheckout && savedFormData) {
             setFormData(JSON.parse(savedFormData));
             setAutoFetch(true);
+            navigate(location.pathname, { replace: true });
         }
         else {
-            window.scrollTo(0, 0);
+            if (!location.hash) {
+                window.scrollTo(0, 0);
+            }
         }
-    }, []);
+    }, [location]);
+
+    useEffect(() => {
+        if (formData.from && points?.length > 0) {
+            const index = points.findIndex(item => item["departurePoint"] === formData.from);
+            setSelectedPointIndex(index);
+        }
+    }, [formData.from, points])
 
     useEffect(() => {
         if (autoFetch) {
@@ -102,47 +117,27 @@ const Home = () => {
         }
     }, [journeyDateChanged, returnDateChanged]);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        if (name === 'journeyDate') {
-            const NYDate = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
-            const currentDate = new Date(NYDate).setHours(0, 0, 0, 0);
-            const selectedDate = new Date(value).setHours(0, 0, 0, 0);
-            let returnDate;
-            if (formData.returnDate) {
-                returnDate = new Date(formData.returnDate).setHours(0, 0, 0, 0);
-            }
-            if (selectedDate >= currentDate) {
-                if (returnDate && returnDate < selectedDate) {
-                    return message.error('Please select a date before return date.');
-                }
-                setFormData({ ...formData, [name]: value });
-            }
-            else {
-                return message.error('Please select a date from today or in the future.');
-            }
-        }
-        else if (name === 'returnDate') {
-            if (!formData.journeyDate) {
-                return message.error('Please select journey date first.')
-            }
-            else {
-                const jdate = new Date(formData.journeyDate);
-                const rdate = new Date(value);
-                if (rdate < jdate) {
-                    return message.error('Please select a date from journey date or in the future.');
-                }
-                else {
-                    setFormData({ ...formData, [name]: value });
-                }
-            }
+    const handleDateChange = (name, value) => {
+        console.log(name, value);
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
 
-        } else {
-            // If other fields are changed, update the state normally
-            setFormData((prevData) => ({
-                ...prevData,
+    const handlePointChange = (name, value) => {
+        if (name === 'from') {
+            setFormData({
+                ...formData,
+                to: null,
                 [name]: value
-            }));
+            });
+        }
+        else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
         }
     };
 
@@ -169,6 +164,7 @@ const Home = () => {
         else if (isDatePassed(formData.journeyDate)) {
             return message.error('Please update the jouney date');
         }
+        console.log(formData);
         dispatch(ShowLoading());
         try {
             const response = await busService.getAllBuses(formData);
@@ -185,8 +181,7 @@ const Home = () => {
             setOutwardBuses([]);
             setReturnBuses([]);
             searchRef.current.scrollIntoView({ behavior: 'smooth' });
-            setError(error.response.data);
-            message.error(error.response.data);
+            setError('No buses available for the selected input, please revise input and try again.');
         }
         localStorage.setItem('formData', JSON.stringify(formData));
         dispatch(HideLoading());
@@ -237,7 +232,7 @@ const Home = () => {
             setReturnDateChanged(true);
         }
     };
-    
+
     return (
         <div className="Home">
             <div className="search-box" ref={searchRef}>
@@ -248,55 +243,54 @@ const Home = () => {
                             <FaLocationDot size={20} />
                             <div>From:</div>
                         </label>
-                        <input
-                            type="text"
+                        <Select
                             id="from"
                             name="from"
-                            list="departure-list"
-                            className="search-input"
+                            className="search-input text-input"
+                            size="large"
                             placeholder="Please Select"
                             value={formData.from}
-                            onChange={handleInputChange}
-                        />
-                        <datalist id="departure-list">
-                            {departures.map((point, index) => (
-                                <option key={index} value={point} />
+                            onChange={(value) => handlePointChange('from', value)}
+                        >
+                            {points.map((point, index) => (
+                                <option key={index} value={point.departurePoint}>{point.departurePoint}</option>
                             ))}
-                        </datalist>
+                        </Select>
                     </div>
                     <div className="flex-row-item">
                         <label htmlFor="to" className="label">
                             <FaLocationDot size={20} />
                             <div>To:</div>
                         </label>
-                        <input
-                            type="text"
+                        <Select
                             id="to"
                             name="to"
-                            list="arrival-list"
-                            className="search-input"
+                            className="search-input text-input"
+                            size="large"
                             placeholder="Please Select"
                             value={formData.to}
-                            onChange={handleInputChange}
-                        />
-                        <datalist id="arrival-list">
-                            {arrivals.map((point, index) => (
-                                <option key={index} value={point} />
+                            onChange={(value) => handlePointChange('to', value)}
+                        >
+                            {points[selectedPointIndex]?.arrivalPoints.map((point, index) => (
+                                <option key={index} value={point}>{point}</option>
                             ))}
-                        </datalist>
+                        </Select>
                     </div>
                     <div className="flex-row-item">
                         <label htmlFor="journey-date" className="label">
                             <FaCalendarAlt size={21} />
                             <div>Departure</div>
                         </label>
-                        <input
-                            type="date"
+                        <DatePicker
+                            format={dateFormat}
                             id="journey-date"
                             name="journeyDate"
-                            className="search-input"
-                            value={formData.journeyDate}
-                            onChange={handleInputChange}
+                            className="search-input date-picker"
+                            size="large"
+                            minDate={dayjs(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }))}
+                            maxDate={formData.returnDate ? dayjs(formData.returnDate) : ''}
+                            value={formData.journeyDate ? dayjs(formData.journeyDate) : formData.journeyDate}
+                            onChange={(date, dateString) => handleDateChange('journeyDate', dateString)}
                         />
                     </div>
                     <div className="flex-row-item">
@@ -304,13 +298,16 @@ const Home = () => {
                             <FaCalendarAlt size={21} />
                             <div>Return (Optional)</div>
                         </label>
-                        <input
-                            type="date"
+                        <DatePicker
+                            format={dateFormat}
                             id="return-date"
                             name="returnDate"
-                            className="search-input"
-                            value={formData.returnDate}
-                            onChange={handleInputChange}
+                            className="search-input date-picker"
+                            size="large"
+                            disabled={!formData.journeyDate}
+                            minDate={formData.journeyDate ? dayjs(formData.journeyDate) : ''}
+                            value={formData.returnDate ? dayjs(formData.returnDate) : formData.returnDate}
+                            onChange={(date, dateString) => handleDateChange('returnDate', dateString)}
                         />
                     </div>
                     <div className="flex-row-item flex-row-last-item">
@@ -340,19 +337,19 @@ const Home = () => {
                             <img src={Image1} alt="walking-person" />
                             <div className="title">Airdi is Convenient</div>
                             <p className="para">Frequent shuttle bus to the airport from convenient locations.</p>
-                            <Link to='/' className="btn">
+                            {/* <Link to='/' className="btn">
                                 <div>LEARN MORE</div>
                                 <FaLongArrowAltRight color="white" />
-                            </Link>
+                            </Link> */}
                         </div>
                         <div className="card">
                             <img src={Image2} alt="market" />
                             <div className="title">Airdi is Affordable</div>
                             <p className="para">Getting to the airport doesn't have to cost the same price as your flight</p>
-                            <Link to='/' className="btn">
+                            {/* <Link to='/' className="btn">
                                 <div>LEARN MORE</div>
                                 <FaLongArrowAltRight color="white" />
-                            </Link>
+                            </Link> */}
                         </div>
                     </div>
                 </div>

@@ -19,11 +19,18 @@ export const { setCountryCodes } = countryCodeSlice.actions;
 
 // Thunk to fetch country codes
 export const fetchCountryCodes = () => (dispatch) => {
-    const codes = countryData.callingCountries.all.map((country) => ({
-        label: `${country.name} (${country.countryCallingCodes[0]})`,
-        value: `${country.countryCallingCodes[0]}`,
-    }));
-    dispatch(setCountryCodes(codes));
+    const uniqueCodes = [...new Set(countryData.callingCountries.all.map(country => country.countryCallingCodes[0].replace(/\s/g, '')))];
+
+    const sortedCodes = uniqueCodes.map(code => ({
+        label: code,
+        value: code
+    })).sort((a, b) => {
+        const numericA = parseInt(a.value.replace(/\D/g, ''), 10); // Extract numeric part and convert to integer
+        const numericB = parseInt(b.value.replace(/\D/g, ''), 10); // Extract numeric part and convert to integer
+        return numericA - numericB; // Compare numerically
+    });
+
+    dispatch(setCountryCodes(sortedCodes));
 };
 
 // Selector to get country codes

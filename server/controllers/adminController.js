@@ -14,11 +14,13 @@ const path = require("path");
 
 // Create a Nodemailer transporter
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: process.env.EMAIL_HOST, // Your SMTP host
+    port: process.env.EMAIL_PORT, // Your SMTP port (usually 587 for TLS/STARTTLS)
+    secure: true, // Set to true if you're using SSL
     auth: {
         user: process.env.SENDER_EMAIL,
         pass: process.env.SENDER_EMAIL_PASSWORD,
-    },
+    }
 });
 
 const Register = async (req, res) => {
@@ -494,8 +496,9 @@ async function generateHTML(ticket) {
 
 async function sendEmailWithPDF(ticket, pdfBuffer, htmlContent) {
     const mailOptions = {
-        from: process.env.SENDER_EMAIL,
+        from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
         to: ticket.email,
+        replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
         subject: 'Ticket Booking Confirmation!',
         html: htmlContent,
         attachments: [{

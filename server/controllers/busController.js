@@ -85,6 +85,35 @@ const GetAllArrivalPoints = async (req, res) => {
     }
 };
 
+const GetDepartureAndArrivalPoints = async (req, res) => {
+    try {
+        const points = await Bus.aggregate([
+            {
+                $group: {
+                    _id: "$departurePoint",
+                    arrivalPoints: { $addToSet: "$arrivalPoint" }
+                }
+            },
+            {
+                $project: {
+                    departurePoint: "$_id",
+                    arrivalPoints: 1,
+                    _id: 0
+                }
+            }
+        ]);
+
+        if (points && points.length > 0) {
+            res.status(200).json({ points });
+        } else {
+            res.status(404).send('Departure points not found!');
+        }
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+        throw error;
+    }
+};
+
 const GetThresholdTime = async (req, res) => {
     try {
         const data = await AdminBusDetails.findOne();
@@ -97,7 +126,6 @@ const GetThresholdTime = async (req, res) => {
         throw error;
     }
 };
-
 
 const GetBusAccess = async (req, res) => {
     try {
@@ -245,6 +273,7 @@ module.exports = {
     FindBus,
     GetAllDeparturePoints,
     GetAllArrivalPoints,
+    GetDepartureAndArrivalPoints,
     GetBusAccess,
     VerifyVoucher,
     GetThresholdTime

@@ -9,11 +9,13 @@ const mongoose = require("mongoose");
 
 // Create a Nodemailer transporter
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: process.env.EMAIL_HOST, // Your SMTP host
+    port: process.env.EMAIL_PORT, // Your SMTP port (usually 587 for TLS/STARTTLS)
+    secure: true, // Set to true if you're using SSL
     auth: {
         user: process.env.SENDER_EMAIL,
         pass: process.env.SENDER_EMAIL_PASSWORD,
-    },
+    }
 });
 
 //Helper functions for hbs
@@ -30,6 +32,12 @@ handlebars.registerHelper('formatDate', function (dateString) {
         hour12: false,
     };
     return date.toLocaleDateString('en-US', options).replace(',', '');
+});
+
+// Define the full date formater helper
+handlebars.registerHelper('getFullDate', function (dateString) {
+    const date = new Date(dateString).toDateString();
+    return date;
 });
 
 // If Equal helper
@@ -152,19 +160,43 @@ const CancelTicket = async (req, res) => {
                 adminBusDetails.vouchers.push(voucherData);
                 await adminBusDetails.save();
                 await Booking.findByIdAndUpdate(bookingId, { status: 'canceled' });
+
+                const startTime = performance.now();
+                console.log('Sending email to user....');
+                const mailOptions2 = {
+                    from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+                    to: process.env.ADMIN_EMAIL,
+                    replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+                    subject: `Ticket Cancellation For Booking ID #${ticket.code}.`,
+                    text: `This voucher code '${randomString}' of $${ticket.subTotal} is generated for cancellation of booking id '${ticket.code}'.`,
+                };
+                transporter.sendMail(mailOptions2, (error, info) => {
+                    if (error) {
+                        return res.status(500).send('Error sending email to admin.');
+                    }
+                    console.log('Email sent to admin:', info.response);
+                    const endTime = performance.now();
+                    console.log('Time Taken: ', (endTime - startTime) / 1000, ' seconds');
+                });
+
+                const startTime2 = performance.now();
+                console.log('Sending email to admin....');
                 const mailOptions = {
-                    from: process.env.SENDER_EMAIL,
+                    from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
                     to: ticket.email,
+                    replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
                     subject: 'Ticket Cancellation Confirmation!',
                     text: `Here is your voucher code '${randomString}' of $${ticket.subTotal} for cancellation of booking id '${ticket.code}'.`,
                 };
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
-                        return res.status(500).send('Error sending email.');
+                        return res.status(500).send('Error sending email to user.');
                     }
-                    console.log('Email sent:', info.response);
-                    res.status(200).json({ voucherCode: randomString });
+                    console.log('Email sent to user:', info.response);
+                    const endTime2 = performance.now();
+                    console.log('Time Taken: ', (endTime2 - startTime2) / 1000, ' seconds');
                 });
+                res.status(200).json({ voucherCode: randomString });
             }
             else {
                 res.status(400).send('Invalid ticket for cancellation');

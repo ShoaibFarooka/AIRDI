@@ -25,6 +25,14 @@ const busService = {
             throw error;
         }
     },
+    getDepartureAndArrivalPoints: async () => {
+        try {
+            const response = await axiosInstance.get(`/buses/get-departure-and-arrival-points`);
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
     getThresholdTime: async () => {
         try {
             const response = await axiosInstance.get(`/buses/get-threshold-time`);

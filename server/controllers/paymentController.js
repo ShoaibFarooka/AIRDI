@@ -14,12 +14,23 @@ const stripe = Stripe(process.env.STRIPE_API_KEY);
 
 // Create a Nodemailer transporter
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: process.env.EMAIL_HOST, // Your SMTP host
+    port: process.env.EMAIL_PORT, // Your SMTP port (usually 587 for TLS/STARTTLS)
+    secure: true, // Set to true if you're using SSL
     auth: {
         user: process.env.SENDER_EMAIL,
         pass: process.env.SENDER_EMAIL_PASSWORD,
-    },
+    }
 });
+
+// const transporter = nodemailer.createTransport({
+//     service: 'Gmail',
+//     auth: {
+//         user: process.env.SENDER_EMAIL2,
+//         pass: process.env.SENDER_EMAIL_PASSWORD2,
+//     },
+// });
+
 
 // Helper function to generate unique 6-digit code
 function generateUniqueCode() {
@@ -214,8 +225,9 @@ async function generateHTML(ticket) {
 
 async function sendEmailWithPDF(ticket, pdfBuffer, htmlContent) {
     const mailOptions = {
-        from: process.env.SENDER_EMAIL,
+        from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
         to: ticket.email,
+        replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
         subject: 'Ticket Booking Confirmation!',
         html: htmlContent,
         attachments: [{
@@ -223,8 +235,49 @@ async function sendEmailWithPDF(ticket, pdfBuffer, htmlContent) {
             content: pdfBuffer
         }]
     };
+    const startTime = performance.now();
     await transporter.sendMail(mailOptions);
+    const endTime = performance.now();
+    console.log('Time Taken: ', (endTime - startTime) / 1000, ' seconds');
 }
+
+const test = async () => {
+    console.log('Working...');
+    const templatePath = path.join(__dirname, '../template/emailTemplate.hbs');
+    const templateContent = fs.readFileSync(templatePath, 'utf8');
+    const template = handlebars.compile(templateContent);
+    const ticket = await Ticket.findOne({ code: 854342 })
+        .populate('journeyBus')
+        .populate('returnBus')
+        .lean();
+    const htmlContent = template({ ticket });
+    const pdfBuffer = await generatePDF(ticket);
+
+    console.log('Sending Email...');
+    const startTime = performance.now();
+    const mailOptions = {
+        from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+        to: 'admin@airdibus.com',
+        replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+        subject: 'Ticket Booking Confirmation Test!',
+        // text: 'Hello, this is test email'
+        html: htmlContent,
+        attachments: [{
+            filename: 'ticket.pdf',
+            content: pdfBuffer
+        }]
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log('Error sending email: ', error);
+        }
+        console.log('Email sent:', info.response);
+        const endTime = performance.now();
+        console.log('Time Taken: ', (endTime - startTime) / 1000, ' seconds');
+    });
+}
+
+// test()
 
 module.exports = {
     StripeCheckout,

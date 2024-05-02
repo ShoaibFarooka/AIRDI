@@ -33,7 +33,6 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
             // console.log('Filtered Outward Buses: ', filteredBuses);
             if (filteredBuses.length === 0) {
                 setError('All buses are already gone for today.');
-                message.error('All buses are already gone for today.');
             }
             setFilteredOutwardBuses(filteredBuses);
         }
@@ -57,7 +56,6 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
             // console.log('Filtered Return Buses: ', filteredBuses);
             if (filteredBuses.length === 0) {
                 setError('All return buses will be already gone at the arrival time.');
-                message.error('All return buses will be already gone at the arrival time.');
             }
             setFilteredReturnBuses(filteredBuses);
         }
@@ -83,7 +81,7 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
     const convertToAMPM = (time24) => {
         var [hours, minutes] = time24.split(':');
         hours = parseInt(hours);
-        var period = hours >= 12 ? 'pm' : 'am';
+        var period = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12 || 12;
         minutes = minutes.padStart(2, '0');
         return hours + ':' + minutes + ' ' + period;
@@ -245,7 +243,7 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
                                         <div className="time">{convertToAMPM(bus.departureTime)}</div>
                                         <div className="city">{bus.departurePoint}</div>
                                     </div>
-                                    <div className="timeline-item">
+                                    <div className="timeline-item duration-timeline-item">
                                         <div className="travel-time">{getDuration(bus.departureTime, bus.arrivalTime)}</div>
                                     </div>
                                     <div className="timeline-item">

@@ -1,5 +1,6 @@
 .checkout {
     overflow-x: hidden;
+
     .header {
         background-color: #a2e53f;
         padding: 12px 30px;
@@ -36,6 +37,7 @@
 
                 &:hover {
                     opacity: 0.7;
+                    cursor: pointer;
                 }
 
                 div {
@@ -205,18 +207,18 @@
                         margin-top: 20px;
 
                         .full-input-container {
-                            width: 100%;
+                            width: 50%;
 
                             .input-flex {
                                 display: flex;
                                 gap: 2%;
 
                                 .input {
-                                    width: 49%;
+                                    width: calc(98% - 80px);
                                 }
 
                                 .select {
-                                    width: 49%;
+                                    width: 80px;
                                 }
                             }
                         }
@@ -248,7 +250,7 @@
 
                             .select {
                                 border-radius: 6px;
-                                padding: 8px 5px;
+                                padding: 8px 4px;
                                 font-size: 16px;
                                 border: 1px solid rgb(69, 69, 69);
                             }
@@ -500,5 +502,35 @@
         position: relative;
         width: 100%;
         height: fit-content;
+    }
+}
+
+@media only screen and (min-width: 470px) and (max-width: 650px) {
+    .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .full-input-container {
+        width: 60%;
+    }
+
+    .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .half-input-container {
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 470px) {
+    .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .full-input-container {
+        width: 80%;
+    }
+
+    .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .half-input-container {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .full-input-container {
+        width: 100%;
+    }
+
+    .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .half-input-container {
+        width: 100%;
     }
 }

@@ -12,7 +12,7 @@ const ManageBooking = () => {
     const [formData, setFormData] = useState({
         code: '',
         email: '',
-        countryCode: '',
+        countryCode: '+1',
         contact: ''
     });
     const [errors, setErrors] = useState({
@@ -165,22 +165,23 @@ const ManageBooking = () => {
                     </div>
                     <div className='input-container'>
                         <label htmlFor='contact' className='label'>Phone Number: </label>
-                        <select className='input select' name='countryCode' value={formData.countryCode} onChange={handleChange}>
-                            <option value='' disabled>Please Select Country</option>
-                            {countryCodes.map((code, index) => (
-                                <option key={index} value={code.value}>
-                                    {code.label}
-                                </option>
-                            ))}
-                        </select>
-                        <input
-                            type='text'
-                            id='contact'
-                            name='contact'
-                            className='input'
-                            value={formData.contact}
-                            onChange={handleChange}
-                        />
+                        <div className='flex-inputs'>
+                            <select className='input select' name='countryCode' value={formData.countryCode} onChange={handleChange}>
+                                {countryCodes.map((code, index) => (
+                                    <option key={index} value={code.value}>
+                                        {code.label}
+                                    </option>
+                                ))}
+                            </select>
+                            <input
+                                type='text'
+                                id='contact'
+                                name='contact'
+                                className='input text-input'
+                                value={formData.contact}
+                                onChange={handleChange}
+                            />
+                        </div>
                         {errors.email && errors.contact && <div className='error'>{errors.contact}</div>}
                     </div>
                     <div className='btn-div'>

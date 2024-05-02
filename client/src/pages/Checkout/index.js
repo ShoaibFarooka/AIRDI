@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './index.css';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { selectCountryCodes } from '../../redux/countryCodeSlice';
@@ -24,7 +24,7 @@ const Checkout = () => {
         adults: Array.from({ length: adultTickets }, () => ({ firstname: '', lastname: '' })),
         children: Array.from({ length: childTickets }, () => ({ firstname: '', lastname: '', dob: '---' })),
         email: '',
-        countryCode: '',
+        countryCode: '+1',
         contact: '',
         paymentGateway: '',
     });
@@ -336,16 +336,20 @@ const Checkout = () => {
         dispatch(HideLoading());
     };
 
+    const goBack = () => {
+        navigate('/', { state: { fromCheckout: true } });
+    };
+
     return (
         <div className='checkout'>
             <div className='header'>AIRDI</div>
             {busData.journeyBus &&
                 <div className='content'>
                     <div className='passenger-info-container'>
-                        <Link to='/' className='back-btn'>
+                        <button onClick={goBack} className='back-btn'>
                             <MdArrowBackIos size={14} />
                             <div>Back</div>
-                        </Link>
+                        </button>
                         <TicketsCounter journeyBus={busData.journeyBus} returnBus={busData.returnBus} adultTickets={adultTickets} setAdultTickets={setAdultTickets} childTickets={childTickets} setChildTickets={setChildTickets} />
                         {(adultTickets > 0 || childTickets > 0) &&
                             <div className='passenger-info'>
@@ -444,33 +448,35 @@ const Checkout = () => {
                                         }
                                     </div>
                                 </div>
-                                <div id='card-2' className='cards'>
-                                    <div className='title'>
-                                        <div className='number'>2</div>
-                                        <div className='text'>Extras</div>
-                                    </div>
-                                    <div className='p-info-internal'>
-                                        {data?.extras.map((extra, index) => (
-                                            <div className='extra' key={index} onClick={() => handleCheckboxChange(index)} >
-                                                <div className='input-container half-input-container'>
-                                                    <input
-                                                        type='checkbox'
-                                                        id={`extra ${index + 1}`}
-                                                        className='input'
-                                                        checked={selectedExtras.includes(index)}
-                                                        readOnly={true}
-                                                    />
-                                                    <label htmlFor={`extra`} className='input-label'>{extra.name}</label>
+                                {data?.extras?.length > 0 &&
+                                    <div id='card-2' className='cards'>
+                                        <div className='title'>
+                                            <div className='number'>2</div>
+                                            <div className='text'>Extras</div>
+                                        </div>
+                                        <div className='p-info-internal'>
+                                            {data?.extras.map((extra, index) => (
+                                                <div className='extra' key={index} onClick={() => handleCheckboxChange(index)} >
+                                                    <div className='input-container half-input-container'>
+                                                        <input
+                                                            type='checkbox'
+                                                            id={`extra ${index + 1}`}
+                                                            className='input'
+                                                            checked={selectedExtras.includes(index)}
+                                                            readOnly={true}
+                                                        />
+                                                        <label htmlFor={`extra`} className='input-label'>{extra.name}</label>
+                                                    </div>
+                                                    <div className='extra-price'>+ ${extra.price}</div>
                                                 </div>
-                                                <div className='extra-price'>+ ${extra.price}</div>
-                                            </div>
-                                        ))
-                                        }
+                                            ))
+                                            }
+                                        </div>
                                     </div>
-                                </div>
+                                }
                                 <div id='card-3' className='cards'>
                                     <div className='title'>
-                                        <div className='number'>3</div>
+                                        <div className='number'>{data?.extras?.length > 0 ? '3' : '2'}</div>
                                         <div className='text'>Contact</div>
                                     </div>
                                     <div className='p-info-internal'>
@@ -489,7 +495,6 @@ const Checkout = () => {
                                             <label htmlFor='number' className='label-input'>Phone Number (optional)</label>
                                             <div className='input-flex'>
                                                 <select className='select' name='countryCode' value={formData.countryCode} onChange={handleChange2}>
-                                                    <option value='' disabled>Please Select Country</option>
                                                     {countryCodes.map((code, index) => (
                                                         <option key={index} value={code.value}>
                                                             {code.label}
@@ -512,7 +517,7 @@ const Checkout = () => {
                                 </div>
                                 <div id='card-4' className='cards'>
                                     <div className='title'>
-                                        <div className='number'>4</div>
+                                        <div className='number'>{data?.extras?.length > 0 ? '4' : '3'}</div>
                                         <div className='text'>Payment</div>
                                     </div>
                                     <div className='p-info-internal'>
