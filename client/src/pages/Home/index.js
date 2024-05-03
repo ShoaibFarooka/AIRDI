@@ -287,6 +287,7 @@ const Home = () => {
                             name="journeyDate"
                             className="search-input date-picker"
                             size="large"
+                            onKeyDown={(e) => e.preventDefault()}
                             minDate={dayjs(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }))}
                             maxDate={formData.returnDate ? dayjs(formData.returnDate) : ''}
                             value={formData.journeyDate ? dayjs(formData.journeyDate) : formData.journeyDate}
@@ -304,6 +305,7 @@ const Home = () => {
                             name="returnDate"
                             className="search-input date-picker"
                             size="large"
+                            onKeyDown={(e) => e.preventDefault()}
                             disabled={!formData.journeyDate}
                             minDate={formData.journeyDate ? dayjs(formData.journeyDate) : ''}
                             value={formData.returnDate ? dayjs(formData.returnDate) : formData.returnDate}
