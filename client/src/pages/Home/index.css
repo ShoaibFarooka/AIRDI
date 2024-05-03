@@ -44,7 +44,6 @@
                 }
 
                 .search-input {
-                    font-size: 14px;
                 }
 
                 .text-input {
@@ -107,7 +106,7 @@
             text-align: center;
             color: #FF6600;
             background-color: #004AAD;
-            padding: 20px 0;
+            padding: 20px 8px;
             border-radius: 5px;
         }
 
