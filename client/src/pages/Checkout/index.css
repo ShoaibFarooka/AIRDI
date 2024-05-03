@@ -90,7 +90,7 @@
                             .input-container {
                                 display: flex;
                                 flex-direction: column;
-                                width: 50%;
+                                width: 49%;
 
                                 .input-label {
                                     margin-bottom: 5px;
@@ -517,20 +517,29 @@
 
 @media only screen and (min-width: 300px) and (max-width: 470px) {
     .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .full-input-container {
-        width: 80%;
+        width: 100%;
     }
 
     .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .half-input-container {
-        width: 80%;
+        width: 100%;
     }
+
+    .checkout .content .passenger-info-container .passenger-info .cards {
+        padding: 24px 18px;
+    }
+
 }
 
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 320px) {
     .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .full-input-container {
         width: 100%;
     }
 
     .checkout .content .passenger-info-container .passenger-info #card-3 .p-info-internal .half-input-container {
         width: 100%;
+    }
+
+    .checkout .content .passenger-info-container .passenger-info .cards {
+        padding: 24px 12px;
     }
 }

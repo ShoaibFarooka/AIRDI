@@ -105,26 +105,55 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
         return formattedDuration;
     };
 
+    // const getFormattedDate = (date, type) => {
+    //     let currentDate;
+    //     if (type === 'outward') {
+    //         currentDate = new Date(filteredOutwardBuses[0].departureDate);
+    //     }
+    //     else if (type === 'return') {
+    //         currentDate = new Date(filteredReturnBuses[0].departureDate);
+    //     }
+    //     else {
+    //         return;
+    //     }
+    //     if (date === 'current') {
+    //         return currentDate.toLocaleDateString();
+    //     } else if (date === 'previous') {
+    //         const previousDate = new Date(currentDate);
+    //         previousDate.setDate(previousDate.getDate() - 1);
+    //         return previousDate.toLocaleDateString();
+    //     } else if (date === 'next') {
+    //         const nextDate = new Date(currentDate);
+    //         nextDate.setDate(nextDate.getDate() + 1);
+    //         return nextDate.toLocaleDateString();
+    //     } else {
+    //         return;
+    //     }
+    // };
+
     const getFormattedDate = (date, type) => {
         let currentDate;
         if (type === 'outward') {
-            currentDate = new Date(filteredOutwardBuses[0].departureDate);
-        }
-        else if (type === 'return') {
-            currentDate = new Date(filteredReturnBuses[0].departureDate);
-        }
-        else {
+            const [year, month, day] = filteredOutwardBuses[0].departureDate.split('-');
+            currentDate = new Date(year, month - 1, day);
+        } else if (type === 'return') {
+            const [year, month, day] = filteredReturnBuses[0].departureDate.split('-');
+            currentDate = new Date(year, month - 1, day);
+        } else {
             return;
         }
         if (date === 'current') {
+            console.log('Current Date: ', currentDate);
             return currentDate.toLocaleDateString();
         } else if (date === 'previous') {
-            const previousDate = new Date(currentDate);
+            const previousDate = currentDate;
             previousDate.setDate(previousDate.getDate() - 1);
+            console.log('Prev Date: ', previousDate);
             return previousDate.toLocaleDateString();
         } else if (date === 'next') {
-            const nextDate = new Date(currentDate);
+            const nextDate = currentDate;
             nextDate.setDate(nextDate.getDate() + 1);
+            console.log('Next Date: ', nextDate);
             return nextDate.toLocaleDateString();
         } else {
             return;
