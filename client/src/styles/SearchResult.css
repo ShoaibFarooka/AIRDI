@@ -79,10 +79,11 @@
 
                 .timeline {
                     display: flex;
-                    justify-content: space-between;
 
-                    /* .duration-timeline-item {
+                    .duration-timeline-item {
                         position: relative;
+                        width: 45%;
+                        margin: 0 8px;
 
                         .travel-time {
                             text-align: center;
@@ -93,8 +94,8 @@
                             content: '';
                             position: absolute;
                             top: 25%;
-                            width: 50px;
-                            height: 1px;
+                            width: calc(50% - 43px);
+                            height: 1.5px;
                             background-color: #e1e1e1;
                         }
 
@@ -105,7 +106,7 @@
                         .travel-time::after {
                             right: 0;
                         }
-                    } */
+                    }
 
                     .timeline-item {
                         display: flex;
@@ -124,6 +125,10 @@
                             font-weight: bold;
                             font-size: 20px;
                         }
+                    }
+
+                    .timeline-item:last-child {
+                        margin-left: auto;
                     }
                 }
 
@@ -190,6 +195,79 @@
     }
 }
 
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+    .SearchResult {
+        .content {
+            .buses {
+                .bus {
+                    .timeline {
+                        .duration-timeline-item {
+                            width: 33%;
+                            margin: 0 8px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 768px) {
+    .SearchResult {
+        .content {
+            .buses {
+                .bus {
+                    .timeline {
+                        .timeline-item {
+                            font-size: 16px;
+
+                            .price {
+                                font-size: 18px;
+                            }
+                        }
+
+                        .duration-timeline-item {
+                            width: 33%;
+                            margin: 0 8px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .SearchResult {
+        .content {
+            .buses {
+                .bus {
+                    .timeline {
+                        .timeline-item {
+                            font-size: 12px;
+
+                            .price {
+                                font-size: 14px;
+                            }
+                        }
+
+                        .duration-timeline-item {
+                            width: 33%;
+                            margin: 0 4px;
+
+                            .travel-time::before,
+                            .travel-time::after {
+                                width: calc(50% - 28px);
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .SearchResult {
         .content {
@@ -201,14 +279,6 @@
 
                     .timeline {
                         justify-content: space-between;
-
-                        .timeline-item {
-                            font-size: 16px;
-
-                            .price {
-                                font-size: 18px;
-                            }
-                        }
                     }
 
                     .info {

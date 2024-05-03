@@ -273,7 +273,7 @@
                 border-radius: 30px;
                 margin-top: 15px;
                 padding: 17px 40px;
-                transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
                 width: fit-content;
 
                 &:hover {
@@ -312,7 +312,7 @@
     }
 }
 
-@media only screen and (min-width: 768px) and (max-width: 900px) {
+@media only screen and (min-width: 769px) and (max-width: 900px) {
     .Home {
         .search-box {
             .flex-row {
@@ -326,10 +326,13 @@
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 769px) {
     .Home {
+        overflow-x: hidden;
+
         .search-box {
             transform: translateY(0);
+            border: none;
             margin: 0;
 
             .flex-row {
@@ -377,6 +380,8 @@
         }
 
         .absolute-container {
+            background-attachment: scroll;
+            height: 60vh;
             justify-content: flex-start;
 
             .content {
