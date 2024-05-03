@@ -1,5 +1,6 @@
 const Booking = require("../models/ticketModel");
 const AdminBusDetails = require("../models/busAccessModel");
+const Bus = require("../models/busModel");
 const nodemailer = require('nodemailer');
 const puppeteer = require("puppeteer");
 const handlebars = require('handlebars');
@@ -133,6 +134,15 @@ const generateVoucherCode = async (length) => {
     }
 };
 
+async function updateBusSeats(ticket) {
+    const seatsTaken = ticket.adultTickets + ticket.childTickets;
+    await Bus.findByIdAndUpdate(ticket.journeyBus._id, { seatsTaken: ticket.journeyBus.seatsTaken - seatsTaken }, { new: true });
+
+    if (ticket.returnBus) {
+        await Bus.findByIdAndUpdate(ticket.returnBus._id, { seatsTaken: ticket.returnBus.seatsTaken - seatsTaken }, { new: true });
+    }
+};
+
 const CancelTicket = async (req, res) => {
     try {
         const { bookingId } = req.body;
@@ -145,7 +155,6 @@ const CancelTicket = async (req, res) => {
         if (ticket) {
             if (is24HoursPriorToDeparture(ticket.journeyBus.departureDate, ticket.journeyBus.departureTime)) {
                 const randomString = await generateVoucherCode(8);
-                console.log(randomString);
                 const adminBusDetails = await AdminBusDetails.findOne();
 
                 if (!adminBusDetails) {
@@ -155,11 +164,13 @@ const CancelTicket = async (req, res) => {
                     code: randomString,
                     value: ticket.subTotal,
                     type: 'fix',
+                    generatedForBooking: ticket._id,
                     isExpired: false
                 }
                 adminBusDetails.vouchers.push(voucherData);
                 await adminBusDetails.save();
                 await Booking.findByIdAndUpdate(bookingId, { status: 'canceled' });
+                await updateBusSeats(ticket);
 
                 const startTime = performance.now();
                 console.log('Sending email to user....');

@@ -16,6 +16,11 @@ const voucherSchema = new mongoose.Schema({
         enum: ['fix', 'percentage'],
         required: true
     },
+    generatedForBooking: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ticket',
+        default: null
+    },
     isOneTimeUse: {
         type: Boolean,
         default: true

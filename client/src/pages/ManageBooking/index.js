@@ -28,7 +28,6 @@ const ManageBooking = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log('Production Test...');
         searchRef.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }, []);
 
