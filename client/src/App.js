@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Checkout from './pages/Checkout/index.js';
 import ManageBooking from './pages/ManageBooking/index.js';
 import Success from './pages/Success/index.js';
+import NotFound from './pages/NotFound/index.js';
 
 function App() {
   const { loading } = useSelector((state) => state.loader);
@@ -39,6 +40,7 @@ function App() {
             <Footer />
           </>
         } />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

@@ -210,7 +210,11 @@ const GetFilteredPassengers = async (req, res) => {
 
 const GetBusAccess = async (req, res) => {
     try {
-        const data = await AdminBusDetails.findOne({});
+        const data = await AdminBusDetails.findOne({})
+            .populate({
+                path: 'vouchers.generatedForBooking',
+                model: 'Ticket'
+            });
         if (data) {
             res.status(200).json({ data });
         }
