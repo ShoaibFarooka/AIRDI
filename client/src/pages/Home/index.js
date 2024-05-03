@@ -23,6 +23,11 @@ const Home = () => {
         journeyDate: '',
         returnDate: ''
     });
+    const [errors, setErrors] = useState({
+        from: '',
+        to: '',
+        journeyDate: '',
+    });
     const [autoFetch, setAutoFetch] = useState(false);
     const [error, setError] = useState(null);
     const [outwardBuses, setOutwardBuses] = useState([]);
@@ -151,20 +156,54 @@ const Home = () => {
         else {
             return false;
         }
-    }
+    };
+
+    const validateInputs = () => {
+        const newErrors = { ...errors };
+        let hasErrors = false;
+
+        if (!formData.from) {
+            newErrors.from = 'Departure point is required';
+            hasErrors = true;
+        }
+        else {
+            newErrors.from = '';
+        }
+
+        if (!formData.to) {
+            newErrors.to = 'Arrival point is required';
+            hasErrors = true;
+        }
+        else {
+            newErrors.to = '';
+        }
+
+        if (!formData.journeyDate) {
+            newErrors.journeyDate = 'Journey Date is required';
+            hasErrors = true;
+        }
+        else if (isDatePassed(formData.journeyDate)) {
+            newErrors.journeyDate = 'Please update the jouney date';
+            hasErrors = true;
+        }
+        else {
+            newErrors.journeyDate = '';
+        }
+        setErrors(newErrors);
+        if (hasErrors) {
+            return false;
+        }
+        return true;
+    };
 
     const handleSearch = async (stopReRender) => {
+        if (!validateInputs()) {
+            return;
+        }
         if (!stopReRender) {
             setOutwardBuses([]);
             setReturnBuses([]);
         }
-        if (!formData.from || !formData.to || !formData.journeyDate) {
-            return message.error('Please fill all required fields');
-        }
-        else if (isDatePassed(formData.journeyDate)) {
-            return message.error('Please update the jouney date');
-        }
-        console.log(formData);
         dispatch(ShowLoading());
         try {
             const response = await busService.getAllBuses(formData);
@@ -185,7 +224,7 @@ const Home = () => {
         }
         localStorage.setItem('formData', JSON.stringify(formData));
         dispatch(HideLoading());
-    }
+    };
 
     const handleParentChangeDate = (date, type) => {
         if (type === 'outward') {
@@ -253,9 +292,10 @@ const Home = () => {
                             onChange={(value) => handlePointChange('from', value)}
                         >
                             {points.map((point, index) => (
-                                <option key={index} value={point.departurePoint}>{point.departurePoint}</option>
+                                <Select.Option key={index} value={point.departurePoint}>{point.departurePoint}</Select.Option>
                             ))}
                         </Select>
+                        {errors.from && <div className="error">{errors.from}</div>}
                     </div>
                     <div className="flex-row-item">
                         <label htmlFor="to" className="label">
@@ -272,9 +312,10 @@ const Home = () => {
                             onChange={(value) => handlePointChange('to', value)}
                         >
                             {points[selectedPointIndex]?.arrivalPoints.map((point, index) => (
-                                <option key={index} value={point}>{point}</option>
+                                <Select.Option key={index} value={point}>{point}</Select.Option>
                             ))}
                         </Select>
+                        {errors.to && <div className="error">{errors.to}</div>}
                     </div>
                     <div className="flex-row-item">
                         <label htmlFor="journey-date" className="label">
@@ -294,6 +335,7 @@ const Home = () => {
                             value={formData.journeyDate ? dayjs(formData.journeyDate) : formData.journeyDate}
                             onChange={(date, dateString) => handleDateChange('journeyDate', dateString)}
                         />
+                        {errors.journeyDate && <div className="error">{errors.journeyDate}</div>}
                     </div>
                     <div className="flex-row-item">
                         <label htmlFor="return-date" className="label">
@@ -314,7 +356,7 @@ const Home = () => {
                             onChange={(date, dateString) => handleDateChange('returnDate', dateString)}
                         />
                     </div>
-                    <div className="flex-row-item flex-row-last-item">
+                    <div className={`flex-row-item ${(errors.from || errors.to || errors.journeyDate) ? 'flex-row-center-item' : 'flex-row-last-item'}`}>
                         <button className="search-btn" onClick={() => handleSearch(false)}>
                             <FaSearch size={18} />
                             <div>Search</div>

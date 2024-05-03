@@ -10,6 +10,7 @@ import { MdArrowBackIos, MdLocalOffer } from "react-icons/md";
 import { MdDepartureBoard } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { isValidEmail } from '../../utils/validationUtils';
 import busService from '../../services/busService';
 import paymentService from '../../services/paymentService';
 import TicketsCounter from '../../components/TicketsCounter';
@@ -25,6 +26,13 @@ const Checkout = () => {
         children: Array.from({ length: childTickets }, () => ({ firstname: '', lastname: '', dob: '---' })),
         email: '',
         countryCode: '+1',
+        contact: '',
+        paymentGateway: '',
+    });
+    const [errors, setErrors] = useState({
+        adults: Array(adultTickets).fill({ firstname: '', lastname: '' }),
+        children: Array(childTickets).fill({ firstname: '', lastname: '', dob: '' }),
+        email: '',
         contact: '',
         paymentGateway: '',
     });
@@ -78,6 +86,14 @@ const Checkout = () => {
                 children: Array.from({ length: childTickets }, () => ({ firstname: '', lastname: '', dob: '---' })),
             }
         });
+        setErrors(prevState => {
+            return {
+                ...prevState,
+                adults: Array(adultTickets).fill({ firstname: '', lastname: '' }),
+                children: Array(childTickets).fill({ firstname: '', lastname: '', dob: '' }),
+            }
+        });
+
     }, [adultTickets, childTickets]);
 
     const formatDate = (dateString) => {
@@ -231,45 +247,128 @@ const Checkout = () => {
         }
     };
 
-    const handlePay = async () => {
-        if (formData.paymentGateway === 'cards') {
-            dispatch(ShowLoading());
-            const extras = data?.extras.filter((extra, index) => selectedExtras.includes(index))
-                .map(extra => {
-                    return {
-                        name: extra.name,
-                        price: extra.price
-                    }
-                });
-            const dataToSend = {
-                ...formData,
-                contact: formData.countryCode + '-' + formData.contact,
-                ...busData,
-                adultTickets,
-                childTickets,
-                discount: discount.isApplied ? {
-                    id: discount.id,
-                    type: discount.type,
-                    value: discount.value
-                }
-                    : null,
-                extras,
-                subTotal: calculateSubTotal()
+    const validateInputs = () => {
+        const newErrors = { ...errors };
+        let hasErrors = false;
+
+        // Validate adults
+        formData.adults.forEach((adult, index) => {
+            if (!adult.firstname.trim()) {
+                newErrors.adults[index].firstname = 'First name is required';
+                hasErrors = true;
+            } else {
+                newErrors.adults[index].firstname = '';
             }
-            try {
-                const response = await paymentService.stripeCheckout(dataToSend);
-                if (response.url) {
-                    localStorage.removeItem('formData');
-                    window.location.href = response.url;
-                }
-            } catch (error) {
-                message.error(error.response.data);
+            if (!adult.lastname.trim()) {
+                newErrors.adults[index].lastname = 'Last name is required';
+                hasErrors = true;
+            } else {
+                newErrors.adults[index].lastname = '';
             }
-            dispatch(HideLoading());
+        });
+
+        // Validate children
+        formData.children.forEach((child, index) => {
+            if (!child.firstname.trim()) {
+                newErrors.children[index].firstname = 'First name is required';
+                hasErrors = true;
+            } else {
+                newErrors.children[index].firstname = '';
+            }
+            if (!child.lastname.trim()) {
+                newErrors.children[index].lastname = 'Last name is required';
+                hasErrors = true;
+            } else {
+                newErrors.children[index].lastname = '';
+            }
+            if (!child.dob.trim()) {
+                newErrors.children[index].dob = 'Date of birth is required';
+                hasErrors = true;
+
+            } else {
+                newErrors.children[index].dob = '';
+            }
+        });
+
+        if (!formData.email) {
+            newErrors.email = 'Email is required';
+            hasErrors = true;
+        }
+        else if (!isValidEmail(formData.email)) {
+            newErrors.email = 'Email is not valid';
+            hasErrors = true;
         }
         else {
-            message.error('Please select payment option')
+            newErrors.email = '';
         }
+
+        if (!formData.contact) {
+            newErrors.contact = 'Contact is required';
+            hasErrors = true;
+        }
+        else if (!formData.countryCode) {
+            newErrors.contact = 'Country Code is not valid';
+            hasErrors = true;
+        }
+        else {
+            newErrors.contact = '';
+        }
+
+        if (!formData.paymentGateway) {
+            newErrors.paymentGateway = 'Payment Gateway is required';
+            hasErrors = true;
+        }
+        else if (formData.paymentGateway === 'paypal') {
+            newErrors.paymentGateway = 'Sorry, currently we are not operating PayPal';
+            hasErrors = true;
+        }
+        else {
+            newErrors.paymentGateway = '';
+        }
+        setErrors(newErrors);
+        if (hasErrors) {
+            return false;
+        }
+        return true;
+    };
+
+    const handlePay = async () => {
+        if (!validateInputs()) {
+            return;
+        }
+        dispatch(ShowLoading());
+        const extras = data?.extras.filter((extra, index) => selectedExtras.includes(index))
+            .map(extra => {
+                return {
+                    name: extra.name,
+                    price: extra.price
+                }
+            });
+        const dataToSend = {
+            ...formData,
+            contact: formData.countryCode + '-' + formData.contact,
+            ...busData,
+            adultTickets,
+            childTickets,
+            discount: discount.isApplied ? {
+                id: discount.id,
+                type: discount.type,
+                value: discount.value
+            }
+                : null,
+            extras,
+            subTotal: calculateSubTotal()
+        }
+        try {
+            const response = await paymentService.stripeCheckout(dataToSend);
+            if (response.url) {
+                localStorage.removeItem('formData');
+                window.location.href = response.url;
+            }
+        } catch (error) {
+            message.error(error.response.data);
+        }
+        dispatch(HideLoading());
     };
 
     const handleCheckboxChange = (index) => {
@@ -372,6 +471,7 @@ const Checkout = () => {
                                                             value={passenger.firstname}
                                                             onChange={(e) => handleChange(e, 'adults', index, 'firstname')}
                                                         />
+                                                        {errors.adults[index]?.firstname && <div className='error'>{errors.adults[index].firstname}</div>}
                                                     </div>
                                                     <div className='input-container half-input-container'>
                                                         <label htmlFor={`lastname-${index}`} className='input-label'>Last Name (required)</label>
@@ -382,6 +482,7 @@ const Checkout = () => {
                                                             value={passenger.lastname}
                                                             onChange={(e) => handleChange(e, 'adults', index, 'lastname')}
                                                         />
+                                                        {errors.adults[index]?.lastname && <div className='error'>{errors.adults[index].lastname}</div>}
                                                     </div>
                                                 </div>
                                             </div>
@@ -399,6 +500,7 @@ const Checkout = () => {
                                                             value={passenger.firstname}
                                                             onChange={(e) => handleChange(e, 'children', index, 'firstname')}
                                                         />
+                                                        {errors.children[index]?.firstname && <div className='error'>{errors.children[index].firstname}</div>}
                                                     </div>
                                                     <div className='input-container half-input-container'>
                                                         <label htmlFor={`lastname-${index + formData.adults.length}`} className='input-label'>Last Name (required)</label>
@@ -409,6 +511,7 @@ const Checkout = () => {
                                                             value={passenger.lastname}
                                                             onChange={(e) => handleChange(e, 'children', index, 'lastname')}
                                                         />
+                                                        {errors.children[index]?.lastname && <div className='error'>{errors.children[index].lastname}</div>}
                                                     </div>
                                                 </div>
                                                 <div className='passenger-dob-container'>
@@ -442,6 +545,7 @@ const Checkout = () => {
                                                             onChange={(e) => handleChange(e, 'children', index, 'dob-3')}
                                                         />
                                                     </div>
+                                                    {errors.children[index]?.dob && <div className='error'>{errors.children[index].dob}</div>}
                                                 </div>
                                             </div>
                                         ))
@@ -490,6 +594,7 @@ const Checkout = () => {
                                                 value={formData.email}
                                                 onChange={handleChange2}
                                             />
+                                            {errors.email && <div className='error'>{errors.email}</div>}
                                         </div>
                                         <div className='input-container full-input-container'>
                                             <label htmlFor='number' className='label-input'>Phone Number (optional)</label>
@@ -512,6 +617,7 @@ const Checkout = () => {
                                                 />
                                             </div>
                                             <div className='info-para'>Used only to contact you in case of delays or itinerary changes.</div>
+                                            {errors.contact && <div className='error'>{errors.contact}</div>}
                                         </div>
                                     </div>
                                 </div>
@@ -549,6 +655,7 @@ const Checkout = () => {
                                             <label htmlFor='paypal-payment' className='input-label'>PayPal</label>
                                         </div>
                                     </div>
+                                    {errors.paymentGateway && <div className='error'>{errors.paymentGateway}</div>}
                                 </div>
                             </div>
                         }

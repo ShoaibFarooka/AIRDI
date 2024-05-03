@@ -51,6 +51,13 @@
                 gap: 15px;
                 width: 100%;
 
+                .error {
+                    color: rgb(198, 47, 47);
+                    font-size: 16px;
+                    margin-top: 3px;
+                    line-height: 0.9;
+                }
+
                 .cards {
                     background-color: white;
                     border: 1px solid rgb(187, 187, 187);
@@ -82,7 +89,7 @@
 
                         .passenger-name-container {
                             display: flex;
-                            align-items: center;
+                            align-items: flex-start;
                             margin-top: 20px;
                             width: 100%;
                             gap: 2%;
