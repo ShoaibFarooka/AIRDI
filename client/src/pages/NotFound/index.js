@@ -1,17 +1,21 @@
 import React from 'react';
-import './index.css';
+import { useNavigate } from 'react-router-dom';
+import { Button, Result } from 'antd';
 
 const NotFound = () => {
+    const navigate = useNavigate();
+
+    const handleBack = () => {
+        navigate('/');
+    };
+
     return (
-        <div className="not-found-container">
-            <h1>404 - Not Found</h1>
-            <p>Sorry, the page you are looking for might be in another castle.</p>
-            <img
-                src="https://i.imgur.com/qIufhof.png"
-                alt="Mario 404"
-                className="not-found-image"
-            />
-        </div>
+        <Result
+            status="404"
+            title="404"
+            subTitle="Sorry, the page you visited does not exist."
+            extra={<Button type="primary" onClick={handleBack}>Back Home</Button>}
+        />
     );
 };
 
