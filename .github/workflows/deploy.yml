@@ -35,3 +35,6 @@ jobs:
         run: |
           cd /root/AIRDI/server
           npm install
+
+      - name: Restart server
+        run: pm2 restart "AIRDI Server"
