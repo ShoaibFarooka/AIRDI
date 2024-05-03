@@ -6,6 +6,7 @@ const puppeteer = require("puppeteer");
 const handlebars = require('handlebars');
 const fs = require("fs");
 const path = require("path");
+const helpers = require("../utils/helpers");
 const mongoose = require("mongoose");
 
 // Create a Nodemailer transporter
@@ -244,9 +245,8 @@ const DownloadTicket = async (req, res) => {
         const templatePath = path.join(__dirname, '../template/pdfTemplate.hbs');
         const templateContent = fs.readFileSync(templatePath, 'utf8');
         const template = handlebars.compile(templateContent);
-        const hostname = 'localhost'; // Get the hostname from the request
-        const port = '5009';
-        const html = template({ ticket, hostname, port });
+        const qrCode = await helpers.generateQR(ticket);
+        const html = template({ ticket, qrCode });
 
         const beforeLaunchTime = performance.now();
 
@@ -317,7 +317,6 @@ const VerifyTicket = async (req, res) => {
         throw error;
     }
 };
-
 
 // DownloadTicket();
 

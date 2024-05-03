@@ -10,6 +10,7 @@ const puppeteer = require("puppeteer");
 const handlebars = require('handlebars');
 const fs = require("fs");
 const path = require("path");
+const helpers = require("../utils/helpers");
 
 
 // Create a Nodemailer transporter
@@ -369,7 +370,8 @@ const BuyTicket = async (req, res) => {
             .lean();
 
         await updateBusSeats(updatedTicket);
-        const pdfBuffer = await generatePDF(updatedTicket);
+        const qrCode = await helpers.generateQR(updatedTicket);
+        const pdfBuffer = await generatePDF(updatedTicket, qrCode);
         const htmlContent = await generateHTML(updatedTicket);
         await sendEmailWithPDF(updatedTicket, pdfBuffer, htmlContent);
 
@@ -469,11 +471,11 @@ async function updateBusSeats(ticket) {
     }
 };
 
-async function generatePDF(ticket) {
+async function generatePDF(ticket, qrCode) {
     const templatePath = path.join(__dirname, '../template/pdfTemplate.hbs');
     const templateContent = fs.readFileSync(templatePath, 'utf8');
     const template = handlebars.compile(templateContent);
-    const html = template({ ticket });
+    const html = template({ ticket, qrCode });
 
     const browser = await puppeteer.launch({
         executablePath: '/usr/bin/chromium-browser',

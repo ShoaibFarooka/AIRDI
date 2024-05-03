@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const puppeteer = require("puppeteer");
 const handlebars = require('handlebars');
 const fs = require("fs");
+const helpers = require("../utils/helpers");
 const path = require("path");
 
 //Stripe Payment Integration
@@ -147,8 +148,8 @@ async function handleCheckoutCompletedEvent(event, res) {
     try {
         await updateVoucher(updatedTicket);
         await updateBusSeats(updatedTicket);
-
-        const pdfBuffer = await generatePDF(updatedTicket);
+        const qrCode = await helpers.generateQR(updatedTicket);
+        const pdfBuffer = await generatePDF(updatedTicket, qrCode);
         const htmlContent = await generateHTML(updatedTicket);
         await sendEmailWithPDF(updatedTicket, pdfBuffer, htmlContent);
 
@@ -193,11 +194,11 @@ async function updateBusSeats(ticket) {
     }
 };
 
-async function generatePDF(ticket) {
+async function generatePDF(ticket, qrCode) {
     const templatePath = path.join(__dirname, '../template/pdfTemplate.hbs');
     const templateContent = fs.readFileSync(templatePath, 'utf8');
     const template = handlebars.compile(templateContent);
-    const html = template({ ticket });
+    const html = template({ ticket, qrCode });
 
     const browser = await puppeteer.launch({
         executablePath: '/usr/bin/chromium-browser',
