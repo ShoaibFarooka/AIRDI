@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Template</title>
+    <title>Airdi Ticket</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         html {
@@ -14,6 +14,7 @@
         body {
             padding: 0;
             margin: 0;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         .page {
@@ -234,16 +235,16 @@
                                 </div>
                                 <div class="timeline-right-content">
                                     <div class="heading">{{ticket.journeyBus.departurePoint}}</div>
-                                    <div class="flex align-start gap-10">
+                                    {{!-- <div class="flex align-start gap-10">
                                         <i class="fa fa-info-circle"></i>
                                         <div class="operation-info">
                                             Operated by AIRDI.
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="bus-card">
                                         <i class="fa fa-bus"></i>
                                         <div class="flex-col gap-5">
-                                            <div>Bus 2610</div>
+                                            <div>Airdi Bus</div>
                                             <div class="grey fs-14">Direction {{ticket.journeyBus.arrivalPoint}}</div>
                                         </div>
                                     </div>
@@ -269,16 +270,16 @@
                                 </div>
                                 <div class="timeline-right-content">
                                     <div class="heading">{{ticket.returnBus.departurePoint}}</div>
-                                    <div class="flex align-start gap-10">
+                                    {{!-- <div class="flex align-start gap-10">
                                         <i class="fa fa-info-circle"></i>
                                         <div class="operation-info">
                                             Operated by AIRDI.
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="bus-card">
                                         <i class="fa fa-bus"></i>
                                         <div class="flex-col gap-5">
-                                            <div>Bus 2611</div>
+                                            <div>Airdi Bus</div>
                                             <div class="grey fs-14">Direction {{ticket.returnBus.arrivalPoint}}</div>
                                         </div>
                                     </div>
