@@ -640,7 +640,7 @@ const Checkout = () => {
                                             <img src='https://shop.flixbus.com/img/gate/credit_card_jcb.svg' alt='cards' className='img' />
                                             <label htmlFor='card-payment' className='input-label'>Cards</label>
                                         </div>
-                                        <div className='seperator'></div>
+                                        {/* <div className='seperator'></div>
                                         <div className='item' onClick={() => handlePaymentSwitch('paypal')}>
                                             <input
                                                 type='radio'
@@ -653,7 +653,7 @@ const Checkout = () => {
                                             />
                                             <img src='https://shop.flixbus.com/img/gate/paypal.svg' alt='paypal' className='img' />
                                             <label htmlFor='paypal-payment' className='input-label'>PayPal</label>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     {errors.paymentGateway && <div className='error'>{errors.paymentGateway}</div>}
                                 </div>
