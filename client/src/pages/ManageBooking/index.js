@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './index.css';
-import { message } from 'antd';
+import { Select, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCountryCodes } from '../../redux/countryCodeSlice';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
@@ -28,6 +28,7 @@ const ManageBooking = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log('Production Test...');
         searchRef.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }, []);
 
@@ -38,7 +39,15 @@ const ManageBooking = () => {
     }, [ticket])
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        let name, value;
+        if (!e.target) {
+            name = e.name;
+            value = e.value;
+        }
+        else {
+            name = e.target.name;
+            value = e.target.value;
+        }
         const numberRegex = /^[0-9\b]+$/;
         if ((name === 'code' || name === 'contact') && value !== '' && !numberRegex.test(value)) {
             return;
@@ -166,13 +175,13 @@ const ManageBooking = () => {
                     <div className='input-container'>
                         <label htmlFor='contact' className='label'>Phone Number: </label>
                         <div className='flex-inputs'>
-                            <select className='input select' name='countryCode' value={formData.countryCode} onChange={handleChange}>
+                            <Select size='large' className='select' name='countryCode' value={formData.countryCode} onChange={(value) => handleChange({ name: 'countryCode', value })}>
                                 {countryCodes.map((code, index) => (
-                                    <option key={index} value={code.value}>
+                                    <Select.Option key={index} value={code.value}>
                                         {code.label}
-                                    </option>
+                                    </Select.Option>
                                 ))}
-                            </select>
+                            </Select>
                             <input
                                 type='text'
                                 id='contact'

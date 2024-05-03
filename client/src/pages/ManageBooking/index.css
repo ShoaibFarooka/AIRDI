@@ -53,8 +53,17 @@
                     gap: 1px;
 
                     .select {
-                        width: 80px;
-                        padding: 10px 4px;
+                        .ant-select-selector {
+                            width: 80px;
+                            border: 1px solid rgba(96, 96, 96, 0.639);
+                            border-radius: 6px;
+                            transition: none;
+
+                            &:focus-within {
+                                box-shadow: none;
+                                border: 2px solid rgba(0, 0, 0, 0.639);
+                            }
+                        }
                     }
 
                     .text-input {
