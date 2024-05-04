@@ -95,12 +95,11 @@ const BookingInfo = ({ ticket, ticketRef, cancellationVoucherCode, setCancellati
                 <div className="voucher-confirmation">
                     <h2>Booking Cancellation Voucher</h2>
                     <p>Your booking has been successfully cancelled.</p>
-                    <p>A confirmation email has been sent to your booking email.</p>
+                    <p>A confirmation email will be sent to your booking email.</p>
                     <p>You can use the following voucher code for redemption:</p>
                     <div className="voucher-code">{cancellationVoucherCode}</div>
                     <p>
-                        Please keep this voucher code safe. You can use it during your next
-                        booking for availing discounts.
+                        Please keep this voucher code safe.
                     </p>
                 </div>
                 :

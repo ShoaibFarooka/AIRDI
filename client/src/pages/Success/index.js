@@ -72,7 +72,9 @@ const Success = () => {
                 {ticketCode ?
                     <>
                         <h1 className='color-green'>Booking Confirmed</h1>
-                        <p>We received your ticket payment and your booking id is '{ticketCode}';<br /> Please check your email for confirmation!</p>
+                        <p>Thank you for making a purchase. Your booking confirmation number is {ticketCode}. An email confirmation is on the way. </p>
+                        <br />
+                        <p>Love, <br />Airdi!</p>
                     </>
                     :
                     <>

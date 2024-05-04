@@ -2,7 +2,7 @@
     overflow-x: hidden;
 
     .header {
-        background-color: #a2e53f;
+        background-color: #004AAD;
         padding: 12px 30px;
         color: white;
         font-size: 30px;
@@ -10,6 +10,11 @@
         position: fixed;
         width: 100%;
         z-index: 1;
+
+        .airdi-logo {
+            width: 85px;
+            height: 30px;
+        }
     }
 
     .content {

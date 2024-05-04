@@ -42,6 +42,14 @@ function generateUniqueCode() {
     return code;
 }
 
+// function generateUniqueCode2(n) {
+//     const min = Math.pow(10, n - 1);
+//     const max = Math.pow(10, n) - 1;
+//     const code = Math.floor(min + Math.random() * (max - min + 1));
+//     return code;
+// }
+
+
 const StripeCheckout = async (req, res) => {
     try {
         const { adults, children, email, contact, paymentGateway, journeyBus, returnBus, adultTickets, childTickets, extras, discount, subTotal } = req.body;
@@ -80,8 +88,8 @@ const StripeCheckout = async (req, res) => {
                     price_data: {
                         currency: 'usd',
                         product_data: {
-                            name: 'AIRDI Bus Ticket',
-                            images: ['https://takeairdi.com/wp-content/uploads/2024/01/J3500_night-2-1920x0-c-default.jpg'],
+                            name: 'Airdi Bus Ticket',
+                            images: ['https://api.airdibus.com/images/logo.png'],
 
                         },
                         unit_amount: req.body.subTotal * 100,
@@ -226,10 +234,10 @@ async function generateHTML(ticket) {
 
 async function sendEmailWithPDF(ticket, pdfBuffer, htmlContent) {
     const mailOptions = {
-        from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+        from: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
         to: ticket.email,
-        replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
-        subject: 'Ticket Booking Confirmation!',
+        replyTo: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
+        subject: `Airdi Booking Confirmation ${ticket.code}`,
         html: htmlContent,
         attachments: [{
             filename: 'ticket.pdf',
@@ -257,9 +265,9 @@ const test = async () => {
     console.log('Sending Email...');
     const startTime = performance.now();
     const mailOptions = {
-        from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+        from: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
         to: 'admin@airdibus.com',
-        replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+        replyTo: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
         subject: 'Ticket Booking Confirmation Test!',
         // text: 'Hello, this is test email'
         html: htmlContent,

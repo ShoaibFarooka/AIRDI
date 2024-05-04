@@ -11,6 +11,7 @@ import { MdDepartureBoard } from "react-icons/md";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { isValidEmail } from '../../utils/validationUtils';
+import logo from '../../assets/logo.png';
 import busService from '../../services/busService';
 import paymentService from '../../services/paymentService';
 import TicketsCounter from '../../components/TicketsCounter';
@@ -441,7 +442,9 @@ const Checkout = () => {
 
     return (
         <div className='checkout'>
-            <div className='header'>AIRDI</div>
+            <div className='header'>
+                <img src={logo} className='airdi-logo' alt='Airdi' />
+            </div>
             {busData.journeyBus &&
                 <div className='content'>
                     <div className='passenger-info-container'>

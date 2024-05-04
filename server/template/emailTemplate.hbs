@@ -27,6 +27,14 @@
             margin-bottom: 10px;
         }
 
+        .header-2 {
+            color: black;
+            font-size: 26px;
+            font-weight: 600;
+            padding: 8px 28px;
+            margin-bottom: 10px;
+        }
+
         .timeline-container {
             /*
                 display: flex;
@@ -126,31 +134,32 @@
         .pl-3 {
             padding-left: 30px
         }
+
+        .tc-header {
+            font-size: 20px;
+            font-weight: 600;
+            padding: 0 28px;
+        }
+
+        .tc-ul {
+            padding-left: 60px;
+        }
     </style>
 </head>
 
 <body>
     <div class="page-header">
         <div>
-            <img src="https://api.airdibus.com/images/logo.png" alt="logo" width="80" height="50" />
+            <img src="https://api.airdibus.com/images/logo.png" alt="logo" width="85" height="35" />
         </div>
         {{!-- <div>#{{ticket.code}}</div> --}}
     </div>
-    <div class="header">Airdi
-        Booking Confirmation</div>
-    <div class="pl-3">Thank you for your booking #{{ticket.code}}.<br />
-        <br />Please find your boarding pass attached.<br />
-        <br /><br />Please note:<br />
-        <br />Want to cancel or change your trip?<br />
-        Use our self-service "Manage My Booking" area where you can cancel your trip or make changes to it and edit
-        passenger details such as name or phone number.<br />
-        <br />FAQ<br />
-        We answer frequent questions about our services on our FAQ page at www.flixbus.com. Here you can find our T&Cs
-        and Passenger Rights.<br />
-        <br />We wish you a pleasant journey,<br />
-        Airdi
+    <div class="header">Airdi Booking Confirmation</div>
+    <div class="pl-3">Thank you for traveling with Airdi.<br />
+        <br />This email confirms your trip information and boarding pass.<br />
+        <br />Your booking confirmation number is {{ticket.code}}.<br />
     </div>
-    <div class="header mt-2">Trip Details</div>
+    <div class="header-2 mt-2">Trip Details</div>
     <div class="timeline-container">
         <div class="pl-3">
             <div class="date">{{getFullDate ticket.journeyBus.departureDate}}</div>
@@ -197,7 +206,7 @@
         </div>
         {{/if}}
     </div>
-    <div class="header mt-2">Passenger Details</div>
+    <div class="header-2 mt-2">Passenger Details</div>
     <div class="pl-3">
         <ul class="ul">
             {{#each ticket.adults}}
@@ -208,14 +217,43 @@
             {{/each}}
         </ul>
     </div>
-    <div class="header mt-2">Payment Details</div>
+    <div class="header-2 mt-2">Payment Details</div>
     <div class="payment-details pl-3">
         <div>Total Payment: ${{ticket.subTotal}} USD</div>
         <div>Payment Method: {{ticket.paymentGateway}}</div>
         <div>Payment Date: {{formatDate ticket.updatedAt}}</div>
     </div>
-    <div class="header mt-2">Terms & Conditions</div>
-    <div>Text</div>
+    <div class="header-2 mt-2">Terms & Conditions</div>
+    <div class="tc-header">Booking and Cancellation:</div>
+    <ul class="tc-ul">
+        <li>Customers can book tickets online through our website.</li>
+        <li>Free cancellation is allowed online up to 24 hours before departure and any time before departure via
+            customer support.</li>
+        <li>Upon cancellation, a refund will be issued in the form of a credit for future use.</li>
+        <li>Credits are valid for 180 days from issue date.</li>
+        <li>Refunds back to original payments will incur a $3 deduction per passenger due to non refundable credit card
+            fees.</li>
+    </ul>
+    <div class="tc-header">Ticket Transfer:</div>
+    <ul class="tc-ul">
+        <li>Tickets are transferrable to another person without any additional fees. Please reach out to customer
+            service at support@airdibus.com to update the passenger name.</li>
+    </ul>
+    <div class="tc-header">No-show Policy:</div>
+    <ul class="tc-ul">
+        <li>If a customer fails to show up for their booked trip without prior notice, a credit will be issued upon
+            request.
+        </li>
+    </ul>
+    <div class="tc-header">Cancellation by the Company:</div>
+    <ul class="tc-ul">
+        <li>In rare cases where the company cancels a trip, customers will be notified promptly and offered alternative
+            arrangements if possible or a full refund.</li>
+    </ul>
+    <div class="tc-header">Terms of Use:</div>
+    <ul class="tc-ul">
+        <li>By using our website and booking services, customers agree to abide by these terms and conditions.</li>
+    </ul>
 </body>
 
 </html>

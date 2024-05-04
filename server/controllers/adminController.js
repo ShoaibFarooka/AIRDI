@@ -502,9 +502,9 @@ async function generateHTML(ticket) {
 
 async function sendEmailWithPDF(ticket, pdfBuffer, htmlContent) {
     const mailOptions = {
-        from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+        from: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
         to: ticket.email,
-        replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+        replyTo: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
         subject: 'Ticket Booking Confirmation!',
         html: htmlContent,
         attachments: [{

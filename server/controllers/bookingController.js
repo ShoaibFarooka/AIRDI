@@ -25,15 +25,7 @@ const transporter = nodemailer.createTransport({
 // Define the formatDate helper
 handlebars.registerHelper('formatDate', function (dateString) {
     const date = new Date(dateString);
-    const options = {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-    };
-    return date.toLocaleDateString('en-US', options).replace(',', '');
+    return date.toDateString();
 });
 
 // Define the full date formater helper
@@ -176,9 +168,9 @@ const CancelTicket = async (req, res) => {
                 const startTime = performance.now();
                 console.log('Sending email to user....');
                 const mailOptions2 = {
-                    from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+                    from: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
                     to: process.env.ADMIN_EMAIL,
-                    replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+                    replyTo: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
                     subject: `Ticket Cancellation For Booking ID #${ticket.code}.`,
                     text: `This voucher code '${randomString}' of $${ticket.subTotal} is generated for cancellation of booking id '${ticket.code}'.`,
                 };
@@ -194,9 +186,9 @@ const CancelTicket = async (req, res) => {
                 const startTime2 = performance.now();
                 console.log('Sending email to admin....');
                 const mailOptions = {
-                    from: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+                    from: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
                     to: ticket.email,
-                    replyTo: '"Airdi Support" <' + process.env.SENDER_EMAIL + '>',
+                    replyTo: '"Airdi" <' + process.env.SENDER_EMAIL + '>',
                     subject: 'Ticket Cancellation Confirmation!',
                     text: `Here is your voucher code '${randomString}' of $${ticket.subTotal} for cancellation of booking id '${ticket.code}'.`,
                 };
