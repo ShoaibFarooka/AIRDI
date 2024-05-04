@@ -707,9 +707,81 @@ const filters = {
 //     .catch(error => console.error(error));
 
 
+// Function to create routes
+const createRoute = async (data) => {
+    try {
+        const { from, to, departureTime, startDate, endDate, totalSeats, price, days, duration } = data;
 
+        //Create placeholder route for track purpose
+        const newRoute = new Route({
+            departurePoint: from,
+            arrivalPoint: to,
+            departureTime,
+            startDate,
+            endDate,
+            totalSeats,
+            price,
+            days,
+            duration,
+            bookingOpen: true
+        });
 
+        // Save the route to the database
+        await newRoute.save();
 
+        // Convert departureTime to hours and minutes
+        const [depHours, depMinutes] = departureTime.split(":").map(Number);
+
+        // Loop through the dates from startDate to endDate
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
+            const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' });
+
+            // Check if the current day is in the selected days list
+            if (days.includes(dayOfWeek)) {
+                const departureDate = date.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+
+                // Calculate arrival time
+                const totalMinutes = depHours * 60 + depMinutes + duration;
+                const arrivalHours = Math.floor(totalMinutes / 60);
+                const arrivalMinutes = totalMinutes % 60;
+                const arrivalTime = `${String(arrivalHours % 24).padStart(2, "0")}:${String(arrivalMinutes).padStart(2, "0")}`;
+                let arrivalDate;
+                if (arrivalHours >= 24) {
+                    const daysToAdd = Math.floor(arrivalHours / 24);
+                    const tempDate = new Date(departureDate);
+                    tempDate.setDate(tempDate.getDate() + daysToAdd);
+                    arrivalDate = tempDate.toISOString().split("T")[0];
+                }
+                else {
+                    arrivalDate = departureDate;
+                }
+
+                // Create a new bus route
+                const newBus = new Bus({
+                    departurePoint: from,
+                    arrivalPoint: to,
+                    departureDate,
+                    arrivalDate,
+                    departureTime,
+                    arrivalTime,
+                    adultTicketCost: price,
+                    childTicketCost: price, // Assuming child ticket cost is the same as adult
+                    totalSeats,
+                    seatsTaken: 0,
+                    bookingOpen: true,
+                    route: newRoute._id
+                });
+
+                // Save the bus route to the database
+                await newBus.save();
+            }
+        }
+    } catch (error) {
+        console.error(`Error creating route: `, error);
+    }
+};
 
 const CreateAdmin = async ({ name, email, password }) => {
     try {
@@ -728,9 +800,9 @@ const CreateAdmin = async ({ name, email, password }) => {
 };
 
 const adminData = {
-    name: 'Admin Test',
-    email: 'shoaibfarooka@gmail.com',
-    password: 'Welcome5home!'
+    name: 'Admin',
+    email: 'admin@airdibus.com',
+    password: 'midhh356ghuuu'
 }
 // CreateAdmin(adminData);
 
