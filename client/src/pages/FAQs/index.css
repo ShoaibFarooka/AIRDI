@@ -1,0 +1,110 @@
+.faqs {}
+
+.faqs .header {
+    /* background-color: #fff0ed; */
+    background-color: #1242825a;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 64px;
+}
+
+.faqs .content {
+    width: 60%;
+}
+
+.faqs .title {
+    color: #313132;
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Frank Ruhl Libre", serif;
+}
+
+.faqs .para {
+    color: #313132;
+    font-size: 16px;
+    font-family: "Red Hat Text", sans-serif;
+}
+
+.faqs .image-container {
+    width: 35%;
+}
+
+.faqs .image {
+    width: 100%;
+    /* height: 290px; */
+}
+
+.faqs .accordin {
+    display: flex;
+    justify-content: center;
+}
+
+.faqs .collapse {
+    border: none;
+    background-color: white;
+    margin-bottom: 90px;
+    padding: 0 20px;
+    width: 67%;
+}
+
+.faqs :where(.css-dev-only-do-not-override-1xg9z9n).ant-collapse .ant-collapse-content {
+    border: none;
+}
+
+.faqs :where(.css-dev-only-do-not-override-1xg9z9n).ant-collapse>.ant-collapse-item {
+    border-bottom: 1px solid rgba(49, 49, 50, .125);
+}
+
+.faqs :where(.css-dev-only-do-not-override-1xg9z9n).ant-collapse>.ant-collapse-item>.ant-collapse-header .ant-collapse-header-text {
+    color: #313132;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: "Frank Ruhl Libre", serif;
+}
+
+.faqs :where(.css-dev-only-do-not-override-1xg9z9n).ant-collapse>.ant-collapse-item>.ant-collapse-header {
+    padding: 24px 0;
+}
+
+.faqs :where(.css-dev-only-do-not-override-1xg9z9n).ant-collapse .ant-collapse-content>.ant-collapse-content-box {
+    padding: 20px 0;
+}
+
+.faqs p {
+    margin: 0;
+    margin-bottom: 16px;
+    color: #313132;
+    font-size: 16px;
+    font-family: "Red Hat Text", sans-serif;
+    line-height: 1.625;
+}
+
+@media only screen and (max-width: 900px) {
+    .faqs .header {
+        flex-direction: column;
+        padding: 25px 15px;
+    }
+
+    .faqs .content {
+        width: 100%;
+    }
+
+    .faqs .image-container {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 502px) and (max-width: 768px) {
+    .faqs .collapse {
+        width: 80%
+    }
+}
+
+@media only screen and (max-width: 502px) {
+    .faqs .collapse {
+        width: 100%
+    }
+}

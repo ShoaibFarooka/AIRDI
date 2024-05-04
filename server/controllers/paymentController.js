@@ -55,7 +55,7 @@ const StripeCheckout = async (req, res) => {
         const { adults, children, email, contact, paymentGateway, journeyBus, returnBus, adultTickets, childTickets, extras, discount, subTotal } = req.body;
         const isAdultsValid = Array.isArray(adults) && adults.every(adult => adult.firstname && adult.lastname);
         const isChildrenValid = Array.isArray(children) && children.every(child => child.firstname && child.lastname);
-        if (!isAdultsValid || !isChildrenValid || !email || !paymentGateway || !journeyBus || !(adultTickets || childTickets) || !subTotal) {
+        if (!isAdultsValid || !isChildrenValid || !email || !paymentGateway || !journeyBus || !(adultTickets || childTickets) || typeof (subTotal) !== 'number') {
             return res.status(400).send('Invalid data');
         }
         const code = generateUniqueCode();

@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Checkout from './pages/Checkout/index.js';
 import ManageBooking from './pages/ManageBooking/index.js';
 import Success from './pages/Success/index.js';
+import FAQs from './pages/FAQs/index.js';
 import NotFound from './pages/NotFound/index.js';
 
 function App() {
@@ -37,6 +38,13 @@ function App() {
           <>
             <Header />
             <Success />
+            <Footer />
+          </>
+        } />
+        <Route path="/faqs" element={
+          <>
+            <Header />
+            <FAQs />
             <Footer />
           </>
         } />

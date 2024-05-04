@@ -217,10 +217,10 @@ const Home = () => {
             }
         } catch (error) {
             console.log('Error: ', error);
+            setError(error.response.data);
             setOutwardBuses([]);
             setReturnBuses([]);
             searchRef.current.scrollIntoView({ behavior: 'smooth' });
-            setError('No buses available for the selected input, please revise input and try again.');
         }
         localStorage.setItem('formData', JSON.stringify(formData));
         dispatch(HideLoading());

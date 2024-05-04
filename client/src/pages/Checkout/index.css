@@ -4,11 +4,10 @@
     .header {
         background-color: #004AAD;
         padding: 12px 30px;
-        color: white;
-        font-size: 30px;
-        font-weight: 700;
+        padding-bottom: 10px;
         position: fixed;
         width: 100%;
+        height: fit-content;
         z-index: 1;
 
         .airdi-logo {

@@ -70,7 +70,7 @@ const Header = () => {
                         <div className="dropdown-list">
                             <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>Book</NavLink></div>
                             <div className="list-item"><NavLink to='/manage-booking' onClick={toggleDropdown}>Manage Booking</NavLink></div>
-                            <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>FAQs</NavLink></div>
+                            <div className="list-item"><NavLink to='/faqs' onClick={toggleDropdown}>FAQs</NavLink></div>
                             <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>Help</NavLink></div>
                         </div>
                     }
@@ -87,7 +87,13 @@ const Header = () => {
                     <div className="para">Fordham</div>
                     <PiArrowsLeftRightBold size={24} className="direction-icon" />
                     <div className="para">JFK: </div>
-                    <div className="para">June 14 - July 31</div>
+                    <div className="para">June 14 - June 30 (Fri - Mon)</div>
+                </div>
+                <div className="schedule-row">
+                    <div className="para">Fordham</div>
+                    <PiArrowsLeftRightBold size={24} className="direction-icon" />
+                    <div className="para">JFK: </div>
+                    <div className="para">July 01 - July 31</div>
                 </div>
                 <div className="schedule-row">
                     <div className="para">Fordham</div>

@@ -70,7 +70,7 @@ const Checkout = () => {
     useEffect(() => {
         if (busData) {
             if (!busData.journeyBus) {
-                message.error('Please select the bus first');
+                // message.error('Please select the bus first');
                 navigate('/');
             }
             else {
@@ -303,17 +303,17 @@ const Checkout = () => {
             newErrors.email = '';
         }
 
-        if (!formData.contact) {
-            newErrors.contact = 'Contact is required';
-            hasErrors = true;
-        }
-        else if (!formData.countryCode) {
-            newErrors.contact = 'Country Code is not valid';
-            hasErrors = true;
-        }
-        else {
-            newErrors.contact = '';
-        }
+        // if (!formData.contact) {
+        //     newErrors.contact = 'Contact is required';
+        //     hasErrors = true;
+        // }
+        // else if (!formData.countryCode) {
+        //     newErrors.contact = 'Country Code is not valid';
+        //     hasErrors = true;
+        // }
+        // else {
+        //     newErrors.contact = '';
+        // }
 
         if (!formData.paymentGateway) {
             newErrors.paymentGateway = 'Payment Gateway is required';
@@ -426,7 +426,7 @@ const Checkout = () => {
                 }
             }
         } catch (error) {
-            message.error(error.response.data);
+            // message.error(error.response.data);
             setDiscount({
                 ...discount,
                 isVerified: true,
@@ -619,7 +619,7 @@ const Checkout = () => {
                                                     onChange={handleChange2}
                                                 />
                                             </div>
-                                            <div className='info-para'>Used only to contact you in case of delays or itinerary changes.</div>
+                                            <div className='info-para'>Used to retrieve booking.</div>
                                             {errors.contact && <div className='error'>{errors.contact}</div>}
                                         </div>
                                     </div>
@@ -753,7 +753,7 @@ const Checkout = () => {
                                 {discount.isApplied &&
                                     <>
                                         <div className='sub-price-info'>
-                                            <div className='service-fee text'>Voucher Discount</div>
+                                            <div className='service-fee text'>Voucher/Promo Discount</div>
                                             <div className='service-fee-price cost'>{discount.type === 'fix' ? `$${discount.value}` : `${discount.value}%`}</div>
                                         </div>
                                         <div className='seperator'></div>

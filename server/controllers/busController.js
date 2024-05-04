@@ -34,7 +34,7 @@ const FindBus = async (req, res) => {
         }).sort({ departureTime: 1 });
 
         if (!outwardBuses || outwardBuses.length <= 0) {
-            return res.status(404).send('Buses not found!');
+            return res.status(404).send('No buses available for the selected input, please revise input and try again.');
         }
         let returnBuses = [];
         if (returnDate) {
