@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const DB = process.env.DB_URI;
 mongoose.connect(DB)
     .then(() => {
-        console.log('Connected to MongoDB Atlas');
+        console.log('Connected to MongoDB Atlas Production');
 
         //Server status endpoint
         app.get('/', (req, res) => {

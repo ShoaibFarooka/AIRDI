@@ -51,7 +51,7 @@ const Home = () => {
                 setPoints(response.points);
             }
         } catch (error) {
-            message.error(error.response.data);
+            console.log(error.response.data);
         }
     };
 
@@ -62,7 +62,7 @@ const Home = () => {
                 setThresholdTime(response.thresholdTime);
             }
         } catch (error) {
-            message.error(error.response.data);
+            console.log(error.response.data);
         }
     };
 
