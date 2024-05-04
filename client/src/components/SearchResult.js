@@ -319,7 +319,7 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
                                         <div className="time">{convertToAMPM(bus.departureTime)}</div>
                                         <div className="city">{bus.departurePoint}</div>
                                     </div>
-                                    <div className="timeline-item">
+                                    <div className="timeline-item duration-timeline-item">
                                         <div className="travel-time">{getDuration(bus.departureTime, bus.arrivalTime)}</div>
                                     </div>
                                     <div className="timeline-item">

@@ -21,9 +21,11 @@ const items = [
     {
         key: '3',
         label: 'What is the booking process?',
-        children: <p>First visit the booking page on our website, input the travel criteria (departure, destination, travel date(s), etc.) and click search
-            Select your preferred departure time and complete booking. **Please note most airlines recommend arriving 2-3 hours before your flight.
-            Show up to the boarding location, present your ticket and board. It's as easy as 1-2-3.</p>
+        children: <ol style={{ margin: 0 }} >
+            <li>First visit the booking page on our website, input the travel criteria (departure, destination, travel date(s), etc.) and click search.</li>
+            <li>Select your preferred departure time and complete booking. **Please note most airlines recommend arriving 2-3 hours before your flight.</li>
+            <li>Show up to the boarding location, present your ticket and board. It's as easy as 1-2-3.</li>
+        </ol >
     },
     {
         key: '4',
@@ -92,7 +94,7 @@ const FAQs = () => {
             <div className='header'>
                 <div className='content'>
                     <div className='title'>Frequently Asked Questions</div>
-                    <p className='para'>Welcome to our Frequently Asked Questions (FAQ) page, where we aim to address any queries or concerns you may have about booking your next bus journey with us. Whether you're a seasoned traveler or embarking on your first adventure, we understand that planning a trip can raise questions. From ticketing and scheduling to amenities and policies, we've compiled a comprehensive list of answers to ensure your journey with us is smooth, convenient, and enjoyable. Browse through our FAQ section to find answers to common inquiries and travel confidently with Airdi.</p>
+                    <p className='para'>Welcome to our FAQ page! We're here to address all your bus journey queries and ensure your travel experience with us is hassle-free. Whether you're a frequent traveler or embarking on your first adventure, find quick answers to common questions about ticketing, schedules, amenities, and more. Travel confidently with Airdi!</p>
                 </div>
                 <div className='image-container'>
                     <img src={image} className='image' alt='dog' />

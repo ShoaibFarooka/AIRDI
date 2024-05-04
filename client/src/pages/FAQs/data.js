@@ -15,7 +15,7 @@ export const dataSource1 = [
         key: '3',
         s_start: 'July 11, 2024',
         route: 'Brroklyn - JFK & LGA Airport',
-        r_start: 'Started',
+        r_start: 'June 1, 2024',
     },
 ];
 
