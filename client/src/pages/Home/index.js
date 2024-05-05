@@ -373,7 +373,7 @@ const Home = () => {
                     <div className="error-info">{error}</div>
                 }
                 <div className="route-info">
-                    <div className="text-2">Book Your Trip For</div>
+                    <div className="text-2">Book Your Trip For:</div>
                     <div className="schedule-row">
                         <div className="para">Fordham</div>
                         <PiArrowsLeftRightBold size={22} className="direction-icon" />

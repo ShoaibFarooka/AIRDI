@@ -263,10 +263,18 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
                 {(view === 2 && filteredReturnBuses.length !== 0) &&
                     <div className="result-count">{filteredReturnBuses.length} results</div>
                 }
-                <div className='info-tooltip'>
-                    <FaCircleInfo size={20} className='tooltip-icon' />
-                    <div className='tooltip-text'>Please plan to arrive at airport 3 hours before flight.</div>
-                </div>
+                {(view === 1 && filteredOutwardBuses.length !== 0) &&
+                    <div className='info-tooltip'>
+                        <FaCircleInfo size={20} className='tooltip-icon' />
+                        <div className='tooltip-text'>Please plan to arrive at airport 3 hours before flight.</div>
+                    </div>
+                }
+                {(view === 2 && filteredReturnBuses.length !== 0) &&
+                    <div className='info-tooltip'>
+                        <FaCircleInfo size={20} className='tooltip-icon' />
+                        <div className='tooltip-text'>Please plan to arrive at airport 3 hours before flight.</div>
+                    </div>
+                }
                 {view === 1 ?
                     <div className="buses">
                         {filteredOutwardBuses.map((bus, index) => (
