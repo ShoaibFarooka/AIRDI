@@ -121,7 +121,7 @@
                     }
 
                     .second-duration-timeline-item {
-                        width: calc(45% + 16px + 142px);
+                        width: calc(45% + 16px + 162px);
                         display: flex;
                         justify-content: space-between;
                         font-size: 18px;
@@ -226,7 +226,7 @@
                         }
 
                         .second-duration-timeline-item {
-                            width: calc(33% + 16px + 142px);
+                            width: calc(33% + 16px + 162px);
                         }
 
                     }
@@ -256,7 +256,7 @@
                         }
 
                         .second-duration-timeline-item {
-                            width: calc(33% + 16px + 126px);
+                            width: calc(33% + 16px + 145px);
                             font-size: 16px;
                         }
                     }
@@ -297,7 +297,7 @@
                         }
 
                         .second-duration-timeline-item {
-                            width: calc(33% + 8px + 95px);
+                            width: calc(33% + 8px + 108px);
                             font-size: 12px;
                         }
 

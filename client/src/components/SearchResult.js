@@ -83,7 +83,7 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
         var [hours, minutes] = time24.split(':');
         hours = parseInt(hours);
         var period = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12 || 12;
+        hours = (hours % 12 || 12).toString().padStart(2, '0');
         minutes = minutes.padStart(2, '0');
         return hours + ':' + minutes + ' ' + period;
     };
