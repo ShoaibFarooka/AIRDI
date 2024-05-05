@@ -62,7 +62,10 @@ const adminBusDetailsSchema = new mongoose.Schema({
         default: 0
     },
     vouchers: [voucherSchema], // Array of vouchers
-    extras: [extraSchema] // Array of extras
+    extras: [extraSchema], // Array of extras
+    holidays: {
+        type: [String]
+    }
 });
 
 // Create the model

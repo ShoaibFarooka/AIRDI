@@ -83,29 +83,6 @@ const Header = () => {
                         <div className="icon"><PiArrowsLeftRightBold /></div>
                         <div className="text">AIRPORT</div>
                     </div>
-                    {window.location.pathname === '/' &&
-                        <div className="">
-                            <div className="text-2">Book Your Trip For</div>
-                            <div className="schedule-row">
-                                <div className="para">Fordham</div>
-                                <PiArrowsLeftRightBold size={24} className="direction-icon" />
-                                <div className="para">JFK: </div>
-                                <div className="para">June 14 - June 30 (Fri - Mon)</div>
-                            </div>
-                            <div className="schedule-row">
-                                <div className="para">Fordham</div>
-                                <PiArrowsLeftRightBold size={24} className="direction-icon" />
-                                <div className="para">JFK: </div>
-                                <div className="para">July 01 - July 31</div>
-                            </div>
-                            <div className="schedule-row">
-                                <div className="para">Fordham</div>
-                                <PiArrowsLeftRightBold size={24} className="direction-icon" />
-                                <div className="para">LGA: </div>
-                                <div className="para">July 01 - July 31</div>
-                            </div>
-                        </div>
-                    }
                 </div>
             </div>
         </div>

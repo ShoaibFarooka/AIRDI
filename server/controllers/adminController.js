@@ -390,7 +390,11 @@ const CreateRoute = async (req, res) => {
         if (!from || !to || !departureTime || !startDate || !endDate || !duration || !(days && days.length !== 0) || !totalSeats || !price) {
             return res.status(400).send('Invalid data');
         }
-        await createRoute(req.body);
+        const adminBusDetails = await AdminBusDetails.findOne({});
+        if (!adminBusDetails) {
+            return res.status(404).send('Bus Access not found');
+        }
+        await createRoute(req.body, adminBusDetails.holidays);
         res.status(200).send('Route created successfully');
     } catch (error) {
         res.status(500).send("Internal Server Error");
@@ -708,7 +712,7 @@ const filters = {
 
 
 // Function to create routes
-const createRoute = async (data) => {
+const createRoute = async (data, holidays) => {
     try {
         const { from, to, departureTime, startDate, endDate, totalSeats, price, days, duration } = data;
 
@@ -731,15 +735,14 @@ const createRoute = async (data) => {
 
         // Convert departureTime to hours and minutes
         const [depHours, depMinutes] = departureTime.split(":").map(Number);
-
-        // Loop through the dates from startDate to endDate
         const start = new Date(startDate);
         const end = new Date(endDate);
         for (let date = start; date <= end; date.setDate(date.getDate() + 1)) {
             const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'short' });
+            const monthDay = `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
-            // Check if the current day is in the selected days list
-            if (days.includes(dayOfWeek)) {
+            // Check if the current day is in the selected days list and it's not holiday
+            if (days.includes(dayOfWeek) && !holidays.includes(monthDay)) {
                 const departureDate = date.toISOString().split("T")[0]; // Format as YYYY-MM-DD
 
                 // Calculate arrival time
@@ -805,6 +808,24 @@ const adminData = {
     password: 'midhh356ghuuu'
 }
 // CreateAdmin(adminData);
+
+
+async function addHoliday(holiday) {
+    try {
+        const adminBusDetails = await AdminBusDetails.findOne({});
+        if (!adminBusDetails) {
+            return console.log('Bus Access not found!');
+        }
+
+        adminBusDetails.holidays.push(holiday);
+        await adminBusDetails.save();
+        console.log('Holiday added successfully');
+    } catch (error) {
+        console.error('Error adding holiday:', error);
+    }
+};
+
+// addHoliday('12-31');
 
 
 module.exports = {

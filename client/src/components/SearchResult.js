@@ -4,6 +4,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { FaBusAlt } from 'react-icons/fa';
 import { message } from 'antd';
+import { FaCircleInfo } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { setBusData } from "../redux/busSlice";
@@ -262,6 +263,10 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
                 {(view === 2 && filteredReturnBuses.length !== 0) &&
                     <div className="result-count">{filteredReturnBuses.length} results</div>
                 }
+                <div className='info-tooltip'>
+                    <FaCircleInfo size={20} className='tooltip-icon' />
+                    <div className='tooltip-text'>Please plan to arrive at airport 3 hours before flight.</div>
+                </div>
                 {view === 1 ?
                     <div className="buses">
                         {filteredOutwardBuses.map((bus, index) => (
@@ -270,19 +275,26 @@ const SerachResult = ({ outwardBuses, returnBuses, handleParentChangeDate, resul
                                 <div className="timeline">
                                     <div className="timeline-item">
                                         <div className="time">{convertToAMPM(bus.departureTime)}</div>
-                                        <div className="city">{bus.departurePoint}</div>
                                     </div>
                                     <div className="timeline-item duration-timeline-item">
                                         <div className="travel-time">{getDuration(bus.departureTime, bus.arrivalTime)}</div>
                                     </div>
                                     <div className="timeline-item">
                                         <div className="time">{convertToAMPM(bus.arrivalTime)}</div>
-                                        <div className="city">{bus.arrivalPoint}</div>
                                     </div>
                                     <div className="timeline-item">
                                         <div className="price">${calculatePrice(bus.adultTicketCost, bus.departureDate, bus.departureTime)}</div>
+                                    </div>
+                                </div>
+                                <div className='timeline'>
+                                    <div className='second-duration-timeline-item'>
+                                        <div className="city">{bus.departurePoint}</div>
+                                        <div className="city">{bus.arrivalPoint}</div>
+                                    </div>
+                                    <div className='timeline-item'>
                                         <div style={{ fontSize: '14px' }}>per person</div>
                                     </div>
+
                                 </div>
                                 <div className="info">
                                     <div className="info-details">

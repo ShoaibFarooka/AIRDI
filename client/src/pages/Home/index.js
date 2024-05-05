@@ -9,6 +9,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { PiArrowsLeftRightBold } from "react-icons/pi";
 import Image1 from '../../assets/image-1.png';
 import Image2 from '../../assets/image-2.png';
 import SerachResult from "../../components/SearchResult";
@@ -371,10 +372,33 @@ const Home = () => {
                 {error &&
                     <div className="error-info">{error}</div>
                 }
+                <div className="route-info">
+                    <div className="text-2">Book Your Trip For</div>
+                    <div className="schedule-row">
+                        <div className="para">Fordham</div>
+                        <PiArrowsLeftRightBold size={22} className="direction-icon" />
+                        <div className="para-2">JFK: </div>
+                        <div className="para-2">June 14 - June 30 (Fri - Mon)</div>
+                    </div>
+                    <div className="schedule-row">
+                        <div className="para">Fordham</div>
+                        <PiArrowsLeftRightBold size={22} className="direction-icon" />
+                        <div className="para-2">JFK: </div>
+                        <div className="para-2">July 01 - July 31</div>
+                    </div>
+                    <div className="schedule-row">
+                        <div className="para">Fordham</div>
+                        <PiArrowsLeftRightBold size={22} className="direction-icon" />
+                        <div className="para-2">LGA: </div>
+                        <div className="para-2">July 01 - July 31</div>
+                    </div>
+                </div>
+
                 {/* <div className="comment">
                     <div>"Getting to the airport just got much more affordable for Bronxites, thanks to Airdi"</div>
                     <div>- Bronx News 12</div>
                 </div> */}
+
                 <div className="cards-container">
                     <div className="cards-title">MEET AIRDI</div>
                     <div className="seperator"></div>

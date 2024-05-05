@@ -135,6 +135,52 @@
             }
         }
 
+        .route-info {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            .text-2 {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: #333;
+            }
+
+            .schedule-row {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                width: fit-content;
+            }
+
+            .para {
+                font-size: 16px;
+                color: #555;
+            }
+
+            .para-2 {
+                font-size: 16px;
+                color: #555;
+                margin-right: 10px;
+            }
+
+            .direction-icon {
+                margin: 0 10px;
+            }
+
+            svg {
+                fill: #e67c30;
+            }
+
+            /* .schedule-row:hover {
+                background-color: #e6e6e6;
+            } */
+        }
+
         .cards-container {
             margin-top: 70px;
             display: flex;
@@ -399,6 +445,56 @@
 
                 .btn {
                     padding: 13px 30px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 380px) and (max-width: 768) {
+    .Home {
+        .main-content {
+            .route-info {
+                .text-2 {
+                    font-size: 16px;
+                }
+
+                .para {
+                    font-size: 14px;
+                }
+
+                .para-2 {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .Home {
+        .main-content {
+            .route-info {
+                .text-2 {
+                    font-size: 14px;
+                }
+
+                .para {
+                    font-size: 12px;
+                }
+
+                .para-2 {
+                    font-size: 12px;
+                    margin-right: 5px;
+                }
+
+                .direction-icon {
+                    margin: 0 6px;
+                }
+
+                svg {
+                    height: 18px;
+                    width: 18px;
                 }
             }
         }

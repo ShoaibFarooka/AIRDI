@@ -56,6 +56,18 @@
             margin-bottom: 18px;
         }
 
+        .info-tooltip {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+
+            .tooltip-text {
+                color: rgb(194, 44, 44);
+                font-size: 16px;
+            }
+        }
+
         .buses {
             display: flex;
             flex-direction: column;
@@ -93,7 +105,7 @@
                         .travel-time::after {
                             content: '';
                             position: absolute;
-                            top: 25%;
+                            top: 50%;
                             width: calc(50% - 43px);
                             height: 1.5px;
                             background-color: #e1e1e1;
@@ -106,6 +118,13 @@
                         .travel-time::after {
                             right: 0;
                         }
+                    }
+
+                    .second-duration-timeline-item {
+                        width: calc(45% + 16px + 142px);
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 18px;
                     }
 
                     .timeline-item {
@@ -205,6 +224,11 @@
                             width: 33%;
                             margin: 0 8px;
                         }
+
+                        .second-duration-timeline-item {
+                            width: calc(33% + 16px + 142px);
+                        }
+
                     }
                 }
             }
@@ -230,6 +254,11 @@
                             width: 33%;
                             margin: 0 8px;
                         }
+
+                        .second-duration-timeline-item {
+                            width: calc(33% + 16px + 126px);
+                            font-size: 16px;
+                        }
                     }
                 }
             }
@@ -240,6 +269,12 @@
 @media only screen and (max-width: 450px) {
     .SearchResult {
         .content {
+            .info-tooltip {
+                .tooltip-text {
+                    font-size: 13px;
+                }
+            }
+
             .buses {
                 .bus {
                     .timeline {
@@ -259,7 +294,32 @@
                             .travel-time::after {
                                 width: calc(50% - 28px);
                             }
+                        }
 
+                        .second-duration-timeline-item {
+                            width: calc(33% + 8px + 95px);
+                            font-size: 12px;
+                        }
+
+                    }
+
+                    .info {
+                        .info-details {
+                            gap: 5px;
+
+                            .item {
+                                gap: 4px;
+                                font-size: 12px;
+                            }
+                        }
+
+                        .btn {
+                            gap: 5px;
+                            padding: 7px 4px 7px 8px;
+
+                            div {
+                                font-size: 12px;
+                            }
                         }
                     }
                 }
@@ -279,17 +339,6 @@
 
                     .timeline {
                         justify-content: space-between;
-                    }
-
-                    .info {
-                        .btn {
-                            gap: 5px;
-                            padding: 7px 4px 7px 8px;
-
-                            div {
-                                font-size: 14px;
-                            }
-                        }
                     }
                 }
             }
