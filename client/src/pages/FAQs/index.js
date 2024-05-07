@@ -91,7 +91,7 @@ const FAQs = () => {
 
     return (
         <div className='faqs' ref={faqRef}>
-            <div className='header'>
+            {/* <div className='header'>
                 <div className='content'>
                     <div className='title'>Frequently Asked Questions</div>
                     <p className='para'>Welcome to our FAQ page! We're here to address all your bus journey queries and ensure your travel experience with us is hassle-free. Whether you're a frequent traveler or embarking on your first adventure, find quick answers to common questions about ticketing, schedules, amenities, and more. Travel confidently with Airdi!</p>
@@ -99,6 +99,9 @@ const FAQs = () => {
                 <div className='image-container'>
                     <img src={image} className='image' alt='dog' />
                 </div>
+            </div> */}
+            <div className='faqs-header'>
+                <div className='title'>Frequently Asked Questions</div>
             </div>
             <div className='accordin'>
                 <Collapse accordion items={items} className='collapse' />

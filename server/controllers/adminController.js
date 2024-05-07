@@ -248,7 +248,7 @@ const UpdateBusAccess = async (req, res) => {
 
 const AddVoucher = async (req, res) => {
     try {
-        const { code, type, value, isOneTimeUse } = req.body;
+        const { code, type, value, isOneTimeUse, generatedFor } = req.body;
         if (!code || !type || !value || typeof (isOneTimeUse) !== 'boolean') {
             return res.status(400).send('Invalid data');
         }
@@ -256,7 +256,8 @@ const AddVoucher = async (req, res) => {
             code,
             value,
             type,
-            isOneTimeUse
+            isOneTimeUse,
+            generatedFor
         };
         const adminBusDetails = await AdminBusDetails.findOne();
         if (!adminBusDetails) {

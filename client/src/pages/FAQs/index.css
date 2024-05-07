@@ -12,12 +12,19 @@
     width: 60%;
 }
 
+.faqs-header {
+    display: flex;
+    justify-content: center;
+}
+
 .faqs .title {
     color: #313132;
     margin-bottom: 24px;
+    margin-top: 20px;
     font-size: 24px;
     font-weight: 700;
     font-family: "Frank Ruhl Libre", serif;
+    padding: 0 20px;
 }
 
 .faqs .para {
@@ -104,5 +111,10 @@
 @media only screen and (max-width: 502px) {
     .faqs .collapse {
         width: 100%
+    }
+
+    .faqs .title {
+        font-size: 20px;
+        font-weight: 600;
     }
 }

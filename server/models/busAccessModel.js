@@ -21,6 +21,10 @@ const voucherSchema = new mongoose.Schema({
         ref: 'Ticket',
         default: null
     },
+    generatedFor: {
+        type: String,
+        default: ''
+    },
     isOneTimeUse: {
         type: Boolean,
         default: true
