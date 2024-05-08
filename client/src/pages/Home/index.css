@@ -147,16 +147,27 @@
             align-items: center;
 
             .text-2 {
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: bold;
                 margin-bottom: 10px;
                 color: #333;
             }
 
+            .flex-table {
+                display: flex;
+                gap: 10px;
+            }
+
+            .schedule-rows-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 10px;
+            }
+
             .schedule-row {
                 display: flex;
                 align-items: center;
-                margin-bottom: 10px;
                 width: fit-content;
             }
 
@@ -177,6 +188,11 @@
 
             svg {
                 fill: #e67c30;
+            }
+
+            th.ant-table-cell,
+            td.ant-table-cell {
+                padding: 5px 10px;
             }
 
             /* .schedule-row:hover {
@@ -399,6 +415,13 @@
 
         .main-content {
             margin-top: 30px;
+
+            .route-info {
+                .flex-table {
+                    flex-direction: column;
+                    gap: 30px;
+                }
+            }
 
             .comment {
                 margin-top: 90px;

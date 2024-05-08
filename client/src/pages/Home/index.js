@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import './index.css';
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { message, DatePicker, Select } from 'antd';
+import { message, DatePicker, Select, Table } from 'antd';
 import dayjs from "dayjs";
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
@@ -12,6 +12,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { PiArrowsLeftRightBold } from "react-icons/pi";
 import Image1 from '../../assets/image-1.png';
 import Image2 from '../../assets/image-2.png';
+import * as data from './data.js';
 import SerachResult from "../../components/SearchResult";
 import busService from "../../services/busService";
 
@@ -373,24 +374,32 @@ const Home = () => {
                     <div className="error-info">{error}</div>
                 }
                 <div className="route-info">
-                    <div className="text-2">Book Your Trip For:</div>
-                    <div className="schedule-row">
-                        <div className="para">Fordham</div>
-                        <PiArrowsLeftRightBold size={22} className="direction-icon" />
-                        <div className="para-2">JFK: </div>
-                        <div className="para-2">June 14 - June 30 (Fri - Mon)</div>
-                    </div>
-                    <div className="schedule-row">
-                        <div className="para">Fordham</div>
-                        <PiArrowsLeftRightBold size={22} className="direction-icon" />
-                        <div className="para-2">JFK: </div>
-                        <div className="para-2">July 01 - July 31</div>
-                    </div>
-                    <div className="schedule-row">
-                        <div className="para">Fordham</div>
-                        <PiArrowsLeftRightBold size={22} className="direction-icon" />
-                        <div className="para-2">LGA: </div>
-                        <div className="para-2">July 01 - July 31</div>
+                    <div className="flex-table">
+                        <div className="schedule-rows-container">
+                            <div className="text-2">SERVICE CALENDAR:</div>
+                            <div className="schedule-row">
+                                <div className="para">Fordham</div>
+                                <PiArrowsLeftRightBold size={22} className="direction-icon" />
+                                <div className="para-2">JFK: </div>
+                                <div className="para-2">June 14 - June 30 (Fri - Mon)</div>
+                            </div>
+                            <div className="schedule-row">
+                                <div className="para">Fordham</div>
+                                <PiArrowsLeftRightBold size={22} className="direction-icon" />
+                                <div className="para-2">JFK: </div>
+                                <div className="para-2">July 01 - August 31</div>
+                            </div>
+                            <div className="schedule-row">
+                                <div className="para">Fordham</div>
+                                <PiArrowsLeftRightBold size={22} className="direction-icon" />
+                                <div className="para-2">LGA: </div>
+                                <div className="para-2">July 01 - August 31</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="text-2">SERVICE COST:</div>
+                            <Table dataSource={data.dataSource} bordered pagination={false} columns={data.columns} />
+                        </div>
                     </div>
                 </div>
 

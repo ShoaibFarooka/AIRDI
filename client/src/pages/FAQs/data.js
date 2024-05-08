@@ -46,7 +46,7 @@ export const dataSource2 = [
     {
         key: '2',
         price: '$30',
-        time: '2 - 21 Days',
+        time: '2 - 20 Days',
     },
     {
         key: '3',
@@ -64,7 +64,7 @@ export const dataSource3 = [
     {
         key: '2',
         price: '$25',
-        time: '2 - 21 Days',
+        time: '2 - 20 Days',
     },
     {
         key: '3',

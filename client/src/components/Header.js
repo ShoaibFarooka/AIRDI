@@ -47,7 +47,7 @@ const Header = () => {
                             FAQs
                         </NavLink>
                     </div>
-                    {/* <div className="link">
+                    <div className="link">
                         <NavLink
                             to='/help'
                             className={({ isActive }) =>
@@ -56,7 +56,7 @@ const Header = () => {
                         >
                             Help
                         </NavLink>
-                    </div> */}
+                    </div>
                 </div>
                 <div className="dropdown">
                     <button className="dropdown-btn">
@@ -71,7 +71,7 @@ const Header = () => {
                             <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>Book</NavLink></div>
                             <div className="list-item"><NavLink to='/manage-booking' onClick={toggleDropdown}>Manage Booking</NavLink></div>
                             <div className="list-item"><NavLink to='/faqs' onClick={toggleDropdown}>FAQs</NavLink></div>
-                            {/* <div className="list-item"><NavLink to='/' onClick={toggleDropdown}>Help</NavLink></div> */}
+                            <div className="list-item"><NavLink to='/help' onClick={toggleDropdown}>Help</NavLink></div>
                         </div>
                     }
                 </div>
@@ -83,6 +83,7 @@ const Header = () => {
                         <div className="icon"><PiArrowsLeftRightBold /></div>
                         <div className="text">AIRPORT</div>
                     </div>
+                    <div className="info-para">&#128293;&#128293;SEATS ARE SELLING FAST, RESERVE YOUR SEAT NOW!!!&#128293;&#128293;</div>
                 </div>
             </div>
         </div>
