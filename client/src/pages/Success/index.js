@@ -13,8 +13,8 @@ const Success = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(ShowLoading());
         const verifyBooking = async (bookingId, retryCount = 0) => {
+            dispatch(ShowLoading());
             console.log('Retrying...');
             try {
                 const response = await bookingService.verifyBooking(bookingId);

@@ -10,6 +10,7 @@ import Checkout from './pages/Checkout/index.js';
 import ManageBooking from './pages/ManageBooking/index.js';
 import Success from './pages/Success/index.js';
 import FAQs from './pages/FAQs/index.js';
+import Help from './pages/Help/indes.js';
 import NotFound from './pages/NotFound/index.js';
 
 function App() {
@@ -45,6 +46,13 @@ function App() {
           <>
             <Header />
             <FAQs />
+            <Footer />
+          </>
+        } />
+        <Route path="/help" element={
+          <>
+            <Header />
+            <Help />
             <Footer />
           </>
         } />
