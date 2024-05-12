@@ -1,0 +1,22 @@
+.help-details {}
+
+.help-details .back-btn {
+    display: flex;
+    text-decoration: none;
+    color: black;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 8px 8px 15px;
+    background-color: rgb(221, 221, 221);
+    border-radius: 6px;
+    width: fit-content;
+
+    &:hover {
+        opacity: 0.7;
+        cursor: pointer;
+    }
+}
+
+.help-details .back-btn div {
+    font-size: 16px;
+}
