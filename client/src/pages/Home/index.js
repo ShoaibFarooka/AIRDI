@@ -381,12 +381,6 @@ const Home = () => {
                                 <div className="para">Fordham</div>
                                 <PiArrowsLeftRightBold size={22} className="direction-icon" />
                                 <div className="para-2">JFK: </div>
-                                <div className="para-2">June 14 - June 30 (Fri - Mon)</div>
-                            </div>
-                            <div className="schedule-row">
-                                <div className="para">Fordham</div>
-                                <PiArrowsLeftRightBold size={22} className="direction-icon" />
-                                <div className="para-2">JFK: </div>
                                 <div className="para-2">July 01 - August 31</div>
                             </div>
                             <div className="schedule-row">
