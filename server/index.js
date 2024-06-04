@@ -20,7 +20,13 @@ app.use((req, res, next) => {
         express.json()(req, res, next);
     }
 });
-app.use(cors());
+const corsOptions = {
+    origin: 'https://airdibus.com',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connection URL
