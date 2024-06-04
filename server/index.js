@@ -26,7 +26,8 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 };
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Connection URL
