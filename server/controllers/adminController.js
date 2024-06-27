@@ -644,7 +644,6 @@ const generateSalesReport = async (filters) => {
             {
                 $match: {
 
-                    // ...matchQuery,
                     ...matchQuery,
 
                     // Match updatedAt by date only if orderDate provided
@@ -672,7 +671,8 @@ const generateSalesReport = async (filters) => {
                     totalSales: { $sum: "$subTotal" },
                     totalPassengers: { $sum: { $add: ["$adultTickets", "$childTickets"] } },
                     totalOrders: { $sum: 1 },
-                    totalBuses: { $addToSet: "$journeyBus._id" }
+                    totalBuses: { $addToSet: "$journeyBus._id" },
+                    allOrders: { $push: "$$ROOT" }
                 }
             },
             {
@@ -681,7 +681,8 @@ const generateSalesReport = async (filters) => {
                     totalSales: 1,
                     totalPassengers: 1,
                     totalOrders: 1,
-                    totalBuses: { $size: "$totalBuses" }
+                    totalBuses: { $size: "$totalBuses" },
+                    allOrders: 1
                 }
             }
         ];
@@ -693,6 +694,94 @@ const generateSalesReport = async (filters) => {
         throw error;
     }
 };
+
+
+// const generateSalesReport = async (filters) => {
+//     try {
+//         const { journeyDate, journeyDateFrom, journeyDateTo, orderDate, orderDateFrom, orderDateTo, boardingTime, boardingPoint, droppingPoint } = filters;
+//         const matchQuery = {};
+
+//         // Apply filters based on provided values
+//         if (journeyDate) {
+//             matchQuery['journeyBus.departureDate'] = journeyDate;
+//         }
+//         if (journeyDateFrom && journeyDateTo) {
+//             matchQuery['journeyBus.departureDate'] = { $gte: journeyDateFrom, $lte: journeyDateTo };
+//         }
+//         if (boardingTime) {
+//             matchQuery['journeyBus.departureTime'] = boardingTime;
+//         }
+//         if (boardingPoint) {
+//             matchQuery['journeyBus.departurePoint'] = boardingPoint;
+//         }
+//         if (droppingPoint) {
+//             matchQuery['journeyBus.arrivalPoint'] = droppingPoint;
+//         }
+//         matchQuery.status = 'confirmed';
+
+//         const pipeline = [
+//             {
+//                 $lookup: {
+//                     from: 'buses', // Name of the Bus collection
+//                     localField: 'journeyBus', // Field in the Ticket collection
+//                     foreignField: '_id', // Field in the Bus collection
+//                     as: 'journeyBus' // Alias for the joined data
+//                 }
+//             },
+//             {
+//                 "$unwind": "$journeyBus"
+//             },
+//             {
+//                 $match: {
+
+//                     ...matchQuery,
+
+//                     // Match updatedAt by date only if orderDate provided
+//                     ...(orderDate && (!orderDateFrom || !orderDateTo) && {
+//                         $expr: {
+//                             $eq: [
+//                                 { $dateToString: { format: "%Y-%m-%d", date: "$updatedAt" } },
+//                                 orderDate
+//                             ]
+//                         }
+//                     }),
+//                     ...(orderDateFrom && orderDateTo && {
+//                         $expr: {
+//                             $and: [
+//                                 { $gte: [{ $dateToString: { format: "%Y-%m-%d", date: "$updatedAt" } }, orderDateFrom] },
+//                                 { $lte: [{ $dateToString: { format: "%Y-%m-%d", date: "$updatedAt" } }, orderDateTo] }
+//                             ]
+//                         }
+//                     }),
+//                 }
+//             },
+//             {
+//                 $group: {
+//                     _id: 0,
+//                     totalSales: { $sum: "$subTotal" },
+//                     totalPassengers: { $sum: { $add: ["$adultTickets", "$childTickets"] } },
+//                     totalOrders: { $sum: 1 },
+//                     totalBuses: { $addToSet: "$journeyBus._id" }
+//                 }
+//             },
+//             {
+//                 $project: {
+//                     _id: 0, // Exclude _id field
+//                     totalSales: 1,
+//                     totalPassengers: 1,
+//                     totalOrders: 1,
+//                     totalBuses: { $size: "$totalBuses" }
+//                 }
+//             }
+//         ];
+
+//         const result = await Booking.aggregate(pipeline);
+//         return result[0]; // Return the aggregation result
+//     } catch (error) {
+//         console.error("Error generating sales report:", error);
+//         throw error;
+//     }
+// };
 
 // Example usage:
 const filters = {
